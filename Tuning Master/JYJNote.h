@@ -6,7 +6,8 @@
 //  Copyright (c) 2013 Jason Ji. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+#import "JYJConstants.h"
 
 @interface JYJNote : NSObject
 

@@ -112,7 +112,8 @@ OSStatus RenderTone(
 - (IBAction)play {
 
     [self playNoteInList:nil];
-    self.playlistTimer = [NSTimer scheduledTimerWithTimeInterval:[self timeIntervalForTempo:self.tempo] target:self selector:@selector(playNoteInList:) userInfo:nil repeats:YES];
+    [self playMetronomeClick];
+    self.playlistTimer = [NSTimer scheduledTimerWithTimeInterval:[self timeIntervalForTempo:self.tempo] target:self selector:@selector(playMetronomeClick) userInfo:nil repeats:YES];
     
 }
 
@@ -141,6 +142,12 @@ OSStatus RenderTone(
 	}
 }
 
+-(void)didFinishPlayingNote:(NSTimer *)timer {
+    
+    if([timer.userInfo boolValue])
+        [self stopTone];
+    [self playNoteInList:nil];
+}
 -(void)playMetronomeClick {
 //    NSLog(@"play metronome");
     NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"CABASA" ofType:@"wav"];
@@ -162,8 +169,7 @@ OSStatus RenderTone(
         [self playTone];
     }
     
-    if(stop)
-        self.noteTimer = [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(stopTone) userInfo:nil repeats:NO];
+    self.noteTimer = [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(didFinishPlayingNote:) userInfo:[NSNumber numberWithBool:stop] repeats:NO];
 
 }
 
@@ -176,25 +182,34 @@ OSStatus RenderTone(
 }
 
 -(void)playNoteInList:(NSTimer *)timer {
+    if(self.indexOfSequence >= self.sequenceToPlay.count) {
+        [self goodNote_EverybodyBackToOne];
+        return;
+    }
+    
     JYJNote *note = self.sequenceToPlay[self.indexOfSequence];
     NSLog(@"playNoteInList - index = %d, note frequency = %f", self.indexOfSequence, note.frequency);
     
     double frequency = note.frequency;
     BOOL stop = NO;
 
-    if(self.indexOfSequence < [self.sequenceToPlay count]-1)
+    if(self.indexOfSequence < self.sequenceToPlay.count-1)
         stop = NO;
     else
         stop = YES;
-    
+
     [self playToneWithFrequency:frequency duration: [self timeIntervalForTempo:self.tempo noteType:note.noteType] stopAtEnd:stop];
-    [self playMetronomeClick];
+//    [self playMetronomeClick];
+    
     self.indexOfSequence++;
     
-    if(self.indexOfSequence == [self.sequenceToPlay count]) {
-        [timer invalidate];
-        self.indexOfSequence = 0.0;
-    }
+}
+
+-(void)goodNote_EverybodyBackToOne {
+    [self stopTone];
+    [self.playlistTimer invalidate];
+    [self.noteTimer invalidate];
+    self.indexOfSequence = 0.0;
 }
 
 - (void)viewDidLoad
@@ -211,13 +226,16 @@ OSStatus RenderTone(
     
     
 //    self.sequenceToPlay = @[@(440), @(440), @(550), @(440), @(440), @(500), @(350)];
-    self.sequenceToPlay = @[
-                             [[JYJNote alloc] initWithFrequency:440 noteType:QUARTER_NOTE],
-                             [[JYJNote alloc] initWithFrequency:440 noteType:QUARTER_NOTE],
-                             [[JYJNote alloc] initWithFrequency:550 noteType:HALF_NOTE],
-                             [[JYJNote alloc] initWithFrequency:500 noteType:QUARTER_NOTE],
-                             
-                            ];
+//    self.sequenceToPlay = @[
+//                             [[JYJNote alloc] initWithFrequency:440 noteType:EIGHTH_NOTE],
+//                             [[JYJNote alloc] initWithFrequency:500 noteType:QUARTER_NOTE],
+//                             [[JYJNote alloc] initWithFrequency:550 noteType:HALF_NOTE],
+//                             [[JYJNote alloc] initWithFrequency:500 noteType:QUARTER_NOTE],
+//                             
+//                            ];
+
+    self.sequenceToPlay = @[ [[JYJNote alloc] initWithFrequency:440 noteType:WHOLE_NOTE] ];
+    
     self.tempo = 120.0;
     
 }

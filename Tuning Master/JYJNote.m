@@ -10,6 +10,12 @@
 
 @implementation JYJNote
 
++(NSDictionary *)noteFrequencyDictionary {
+    return @{ A : @(440.0),
+              A_SHARP_B_FLAT : @(500),
+              };
+}
+
 -(JYJNote *)initWithFrequency:(double)frequency noteType:(double)noteType {
     self = [self init];
     if(self) {
@@ -20,4 +26,22 @@
     return self;
 }
 
+-(JYJNote *)initWithNote:(NSString *)note noteType:(double)noteType {
+    self = [self init];
+    if(self) {
+
+        self.noteType = noteType;
+    }
+    
+    return self;
+}
+
++(double)frequencyForNote:(NSString *)note {
+    
+    if([JYJNote noteFrequencyDictionary][note]) {
+        return [[JYJNote noteFrequencyDictionary][note] doubleValue];
+    }
+    
+    return -1;
+}
 @end
