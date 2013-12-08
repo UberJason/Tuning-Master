@@ -6,8 +6,27 @@
 //  Copyright (c) 2013 Jason Ji. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+@import AudioToolbox;
+@import AVFoundation;
+@import AudioUnit;
+#import "JYJConstants.h"
+#import "JYJNote.h"
 
 @interface JYJMainController : UIViewController
+
+@property (nonatomic) AudioComponentInstance toneUnit;
+
+@property (nonatomic) double noteFrequency;
+@property (nonatomic) double tempo;     // in beats per minute
+
+@property (nonatomic) double sampleRate;
+@property (nonatomic) double theta;
+
+@property (strong, nonatomic) NSTimer *playlistTimer;
+@property (strong, nonatomic) NSTimer *noteTimer;
+
+@property (nonatomic) NSInteger indexOfSequence;
+@property (strong, nonatomic) NSArray *sequenceToPlay;
 
 @end

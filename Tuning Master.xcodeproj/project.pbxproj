@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		962770801854293A00E0B1FD /* CABASA.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9627707F1854293A00E0B1FD /* CABASA.wav */; };
+		9627708618543A6D00E0B1FD /* JYJNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 9627708518543A6D00E0B1FD /* JYJNote.m */; };
 		96DB433F1854233000B7F739 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB433E1854233000B7F739 /* Foundation.framework */; };
 		96DB43411854233000B7F739 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43401854233000B7F739 /* CoreGraphics.framework */; };
 		96DB43431854233000B7F739 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43421854233000B7F739 /* UIKit.framework */; };
@@ -21,6 +23,8 @@
 		96DB43601854233000B7F739 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43421854233000B7F739 /* UIKit.framework */; };
 		96DB43681854233000B7F739 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96DB43661854233000B7F739 /* InfoPlist.strings */; };
 		96DB436A1854233000B7F739 /* Tuning_MasterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB43691854233000B7F739 /* Tuning_MasterTests.m */; };
+		96DB43741854240400B7F739 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43731854240400B7F739 /* AudioToolbox.framework */; };
+		96DB43761854240D00B7F739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43751854240D00B7F739 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9627707F1854293A00E0B1FD /* CABASA.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CABASA.wav; sourceTree = "<group>"; };
+		96277081185439C000E0B1FD /* JYJConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJConstants.h; sourceTree = "<group>"; };
+		9627708418543A6D00E0B1FD /* JYJNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJNote.h; sourceTree = "<group>"; };
+		9627708518543A6D00E0B1FD /* JYJNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYJNote.m; sourceTree = "<group>"; };
 		96DB433B1854233000B7F739 /* Tuning Master.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tuning Master.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DB433E1854233000B7F739 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96DB43401854233000B7F739 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,6 +61,8 @@
 		96DB43651854233000B7F739 /* Tuning MasterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tuning MasterTests-Info.plist"; sourceTree = "<group>"; };
 		96DB43671854233000B7F739 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		96DB43691854233000B7F739 /* Tuning_MasterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tuning_MasterTests.m; sourceTree = "<group>"; };
+		96DB43731854240400B7F739 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		96DB43751854240D00B7F739 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96DB43761854240D00B7F739 /* AVFoundation.framework in Frameworks */,
+				96DB43741854240400B7F739 /* AudioToolbox.framework in Frameworks */,
 				96DB43411854233000B7F739 /* CoreGraphics.framework in Frameworks */,
 				96DB43431854233000B7F739 /* UIKit.framework in Frameworks */,
 				96DB433F1854233000B7F739 /* Foundation.framework in Frameworks */,
@@ -79,10 +91,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9627707E1854292600E0B1FD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9627707F1854293A00E0B1FD /* CABASA.wav */,
+			);
+			name = Resources;
+			path = "Tuning Master";
+			sourceTree = "<group>";
+		};
 		96DB43321854233000B7F739 = {
 			isa = PBXGroup;
 			children = (
 				96DB43441854233000B7F739 /* Tuning Master */,
+				9627707E1854292600E0B1FD /* Resources */,
 				96DB43631854233000B7F739 /* Tuning MasterTests */,
 				96DB433D1854233000B7F739 /* Frameworks */,
 				96DB433C1854233000B7F739 /* Products */,
@@ -101,6 +123,8 @@
 		96DB433D1854233000B7F739 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96DB43751854240D00B7F739 /* AVFoundation.framework */,
+				96DB43731854240400B7F739 /* AudioToolbox.framework */,
 				96DB433E1854233000B7F739 /* Foundation.framework */,
 				96DB43401854233000B7F739 /* CoreGraphics.framework */,
 				96DB43421854233000B7F739 /* UIKit.framework */,
@@ -117,6 +141,9 @@
 				96DB43501854233000B7F739 /* Main.storyboard */,
 				96DB43531854233000B7F739 /* JYJMainController.h */,
 				96DB43541854233000B7F739 /* JYJMainController.m */,
+				9627708418543A6D00E0B1FD /* JYJNote.h */,
+				9627708518543A6D00E0B1FD /* JYJNote.m */,
+				96277081185439C000E0B1FD /* JYJConstants.h */,
 				96DB43561854233000B7F739 /* Images.xcassets */,
 				96DB43451854233000B7F739 /* Supporting Files */,
 			);
@@ -230,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96DB43571854233000B7F739 /* Images.xcassets in Resources */,
+				962770801854293A00E0B1FD /* CABASA.wav in Resources */,
 				96DB43491854233000B7F739 /* InfoPlist.strings in Resources */,
 				96DB43521854233000B7F739 /* Main.storyboard in Resources */,
 			);
@@ -253,6 +281,7 @@
 				96DB434F1854233000B7F739 /* JYJAppDelegate.m in Sources */,
 				96DB434B1854233000B7F739 /* main.m in Sources */,
 				96DB43551854233000B7F739 /* JYJMainController.m in Sources */,
+				9627708618543A6D00E0B1FD /* JYJNote.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +490,7 @@
 				96DB436F1854233000B7F739 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		96DB43701854233000B7F739 /* Build configuration list for PBXNativeTarget "Tuning MasterTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +499,7 @@
 				96DB43721854233000B7F739 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
