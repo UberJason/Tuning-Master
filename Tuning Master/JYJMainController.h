@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JYJViewController : UIViewController
+@interface JYJMainController : UIViewController
 
 @end

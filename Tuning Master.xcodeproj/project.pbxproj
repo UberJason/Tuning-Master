@@ -14,7 +14,7 @@
 		96DB434B1854233000B7F739 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB434A1854233000B7F739 /* main.m */; };
 		96DB434F1854233000B7F739 /* JYJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB434E1854233000B7F739 /* JYJAppDelegate.m */; };
 		96DB43521854233000B7F739 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96DB43501854233000B7F739 /* Main.storyboard */; };
-		96DB43551854233000B7F739 /* JYJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB43541854233000B7F739 /* JYJViewController.m */; };
+		96DB43551854233000B7F739 /* JYJMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB43541854233000B7F739 /* JYJMainController.m */; };
 		96DB43571854233000B7F739 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96DB43561854233000B7F739 /* Images.xcassets */; };
 		96DB435E1854233000B7F739 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB435D1854233000B7F739 /* XCTest.framework */; };
 		96DB435F1854233000B7F739 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB433E1854233000B7F739 /* Foundation.framework */; };
@@ -45,8 +45,8 @@
 		96DB434D1854233000B7F739 /* JYJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JYJAppDelegate.h; sourceTree = "<group>"; };
 		96DB434E1854233000B7F739 /* JYJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JYJAppDelegate.m; sourceTree = "<group>"; };
 		96DB43511854233000B7F739 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		96DB43531854233000B7F739 /* JYJViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JYJViewController.h; sourceTree = "<group>"; };
-		96DB43541854233000B7F739 /* JYJViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JYJViewController.m; sourceTree = "<group>"; };
+		96DB43531854233000B7F739 /* JYJMainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JYJMainController.h; sourceTree = "<group>"; };
+		96DB43541854233000B7F739 /* JYJMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JYJMainController.m; sourceTree = "<group>"; };
 		96DB43561854233000B7F739 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		96DB435C1854233000B7F739 /* Tuning MasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tuning MasterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DB435D1854233000B7F739 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -115,8 +115,8 @@
 				96DB434D1854233000B7F739 /* JYJAppDelegate.h */,
 				96DB434E1854233000B7F739 /* JYJAppDelegate.m */,
 				96DB43501854233000B7F739 /* Main.storyboard */,
-				96DB43531854233000B7F739 /* JYJViewController.h */,
-				96DB43541854233000B7F739 /* JYJViewController.m */,
+				96DB43531854233000B7F739 /* JYJMainController.h */,
+				96DB43541854233000B7F739 /* JYJMainController.m */,
 				96DB43561854233000B7F739 /* Images.xcassets */,
 				96DB43451854233000B7F739 /* Supporting Files */,
 			);
@@ -252,7 +252,7 @@
 			files = (
 				96DB434F1854233000B7F739 /* JYJAppDelegate.m in Sources */,
 				96DB434B1854233000B7F739 /* main.m in Sources */,
-				96DB43551854233000B7F739 /* JYJViewController.m in Sources */,
+				96DB43551854233000B7F739 /* JYJMainController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Jason Ji. All rights reserved.
 //
 
-#import "JYJViewController.h"
+#import "JYJMainController.h"
 
-@interface JYJViewController ()
+@interface JYJMainController ()
 
 @end
 
-@implementation JYJViewController
+@implementation JYJMainController
 
 - (void)viewDidLoad
 {
