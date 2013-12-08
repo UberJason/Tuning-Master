@@ -19,7 +19,7 @@ OSStatus RenderTone(
 {
     
 	// Fixed amplitude is good enough for our purposes
-	const double amplitude = 0.25;
+	const double amplitude = 0.1;
     
 	// Get the tone parameters out of the view controller
 	JYJMainController *viewController = (__bridge JYJMainController *)inRefCon;
@@ -225,16 +225,18 @@ OSStatus RenderTone(
     [session setActive:true error:nil];
     
     
-//    self.sequenceToPlay = @[@(440), @(440), @(550), @(440), @(440), @(500), @(350)];
-//    self.sequenceToPlay = @[
-//                             [[JYJNote alloc] initWithFrequency:440 noteType:EIGHTH_NOTE],
-//                             [[JYJNote alloc] initWithFrequency:500 noteType:QUARTER_NOTE],
-//                             [[JYJNote alloc] initWithFrequency:550 noteType:HALF_NOTE],
-//                             [[JYJNote alloc] initWithFrequency:500 noteType:QUARTER_NOTE],
-//                             
-//                            ];
+    self.sequenceToPlay = @[@(440), @(440), @(550), @(440), @(440), @(500), @(350)];
+    self.sequenceToPlay = @[
+                             [[JYJNote alloc] initWithFrequency:440 noteType:EIGHTH_NOTE],
+                             [[JYJNote alloc] initWithFrequency:500 noteType:QUARTER_NOTE],
+                             [[JYJNote alloc] initWithFrequency:550 noteType:HALF_NOTE],
+                             [[JYJNote alloc] initWithFrequency:500 noteType:QUARTER_NOTE],
+                             
+                            ];
 
-    self.sequenceToPlay = @[ [[JYJNote alloc] initWithFrequency:440 noteType:WHOLE_NOTE] ];
+//    self.sequenceToPlay = @[ [[JYJNote alloc] initWithNote: [NSString stringWithFormat:@"%@-%d", A_SHARP_B_FLAT, OCTAVE_4] noteType:EIGHTH_NOTE] ];
+    
+//    self.sequenceToPlay = @[ [[JYJNote alloc] initWithFrequency:440 noteType:WHOLE_NOTE] ];
     
     self.tempo = 120.0;
     
