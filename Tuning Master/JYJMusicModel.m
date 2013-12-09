@@ -173,7 +173,7 @@ OSStatus RenderTone(
     AudioServicesPlaySystemSound (soundID);
 }
 
--(void)playToneWithFrequency:(double)frequency duration:(NSTimeInterval)duration shorterThanQuarterNote:(BOOL)shortNote {
+-(void)playToneWithFrequency:(double)frequency duration:(NSTimeInterval)duration {
     NSLog(@"playToneWithFrequency duration = %f", duration);
     
     if(self.toneUnit)
@@ -182,12 +182,6 @@ OSStatus RenderTone(
     self.noteFrequency = frequency;
     
     [self playTone];
-    
-    if(shortNote) {
-        // TODO: invalidate playlistTimer after short note's duration and make it fire and start again
-        // probably something involving perform selector after delay and [playlistTimer fire]
-    }
-    
     
     self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(didFinishPlayingNote:) userInfo:nil repeats:NO];
     
@@ -209,8 +203,6 @@ OSStatus RenderTone(
         return;
     }
     
-    
-    
     if(self.indexOfSequence >= self.sequenceToPlay.count) {
         [self goodNote_EverybodyBackToOne];
         return;
@@ -219,9 +211,10 @@ OSStatus RenderTone(
     JYJNote *note = self.sequenceToPlay[self.indexOfSequence];
     self.ignoreCount = [JYJNote ignoreCountForNoteLength:note.noteLength];
     double frequency = note.frequency;
-    NSLog(@"call playNoteInList - index = %d, note frequency = %f", self.indexOfSequence, note.frequency);
+    NSLog(@"call playNoteInList - index = %d, note frequency = %f %@", self.indexOfSequence, note.frequency, (note.isRest ? @"REST" : @""));
     
-    [self playToneWithFrequency:frequency duration: [self timeIntervalForTempo:self.tempo noteLength:note.noteLength] shorterThanQuarterNote:(note.noteLength < QUARTER_NOTE)];
+    if(!note.isRest)
+        [self playToneWithFrequency:frequency duration: [self timeIntervalForTempo:self.tempo noteLength:note.noteLength]];
     
     self.indexOfSequence++;
     

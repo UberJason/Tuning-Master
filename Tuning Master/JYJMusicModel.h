@@ -35,5 +35,6 @@
 -(JYJMusicModel *)initWithSampleRate:(double)sampleRate tempo:(double)tempo sequenceToPlay:(NSMutableArray *)sequenceToPlay;
 
 -(void)play;
+-(void)goodNote_EverybodyBackToOne;
 
 @end

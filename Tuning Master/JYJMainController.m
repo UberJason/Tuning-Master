@@ -21,6 +21,9 @@
     [self.model play];
 
 }
+- (IBAction)stop {
+    [self.model goodNote_EverybodyBackToOne];
+}
 
 - (void)viewDidLoad
 {
@@ -35,23 +38,11 @@
     double tempo = 120.0;
     NSMutableArray *sequence = [@[
                             [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:QUARTER_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:D octave:4] noteLength:QUARTER_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:E octave:4] noteLength:EIGHTH_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:F octave:4] noteLength:SIXTEENTH_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:5] noteLength:WHOLE_NOTE]
+                            [[JYJNote alloc] initWithRestForLength:EIGHTH_NOTE],
+//                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:D octave:4] noteLength:QUARTER_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:E octave:4] noteLength:QUARTER_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:F octave:4] noteLength:QUARTER_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:G octave:4] noteLength:QUARTER_NOTE]
                             ] mutableCopy];
     
     self.model = [[JYJMusicModel alloc] initWithSampleRate:sampleRate tempo:tempo sequenceToPlay:sequence];

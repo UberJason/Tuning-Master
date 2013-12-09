@@ -40,6 +40,7 @@ static double originFrequency = 440.0;
         _noteLength = noteLength;
         _noteName = nil;
         _octaveNumber = -1;
+        _rest = NO;
     }
     
     return self;
@@ -53,8 +54,22 @@ static double originFrequency = 440.0;
         _octaveNumber = [[note componentsSeparatedByString:@"-"][1] doubleValue];
         _noteLength = noteLength;
         _frequency = [JYJNote frequencyForNote:note];
+        _rest = NO;
     }
     
+    return self;
+}
+
+-(JYJNote *)initWithRestForLength:(double)noteLength {
+    self = [self init];
+    if(self) {
+        _noteName = REST;
+        _octaveNumber = -1;
+        _noteLength = noteLength;
+        _frequency = -1;
+        _rest = YES;
+        
+    }
     return self;
 }
 

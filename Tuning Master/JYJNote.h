@@ -15,9 +15,12 @@
 @property (nonatomic) double noteLength;
 @property (strong, nonatomic) NSString *noteName;
 @property (nonatomic) NSInteger octaveNumber;
+@property (nonatomic, getter = isRest) BOOL rest;
 
 -(JYJNote *)initWithFrequency:(double)frequency noteLength:(double)noteLength;
 -(JYJNote *)initWithNote:(NSString *)note noteLength:(double)noteLength;
+-(JYJNote *)initWithRestForLength:(double)noteLength;
+
 -(void)recomputeNoteFrequency;
 -(BOOL)hasSameFrequencyAs:(JYJNote *)other;
 

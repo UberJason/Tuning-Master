@@ -6,11 +6,15 @@
 //  Copyright (c) 2013 Jason Ji. All rights reserved.
 //
 
+#define REST_FREQUENCY -1
+
 #define SIXTEENTH_NOTE .25
 #define EIGHTH_NOTE .5
 #define QUARTER_NOTE 1
 #define HALF_NOTE 2
 #define WHOLE_NOTE 4
+
+#define REST @"Rest"
 
 #define A @"A"
 #define A_SHARP_B_FLAT @"A# / Bb"
