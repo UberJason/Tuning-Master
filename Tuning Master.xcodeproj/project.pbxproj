@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		962770801854293A00E0B1FD /* CABASA.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9627707F1854293A00E0B1FD /* CABASA.wav */; };
 		9627708618543A6D00E0B1FD /* JYJNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 9627708518543A6D00E0B1FD /* JYJNote.m */; };
+		962770891855492C00E0B1FD /* JYJMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 962770881855492C00E0B1FD /* JYJMusicModel.m */; };
 		96DB433F1854233000B7F739 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB433E1854233000B7F739 /* Foundation.framework */; };
 		96DB43411854233000B7F739 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43401854233000B7F739 /* CoreGraphics.framework */; };
 		96DB43431854233000B7F739 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43421854233000B7F739 /* UIKit.framework */; };
@@ -42,6 +43,8 @@
 		96277081185439C000E0B1FD /* JYJConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJConstants.h; sourceTree = "<group>"; };
 		9627708418543A6D00E0B1FD /* JYJNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJNote.h; sourceTree = "<group>"; };
 		9627708518543A6D00E0B1FD /* JYJNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYJNote.m; sourceTree = "<group>"; };
+		962770871855492C00E0B1FD /* JYJMusicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJMusicModel.h; sourceTree = "<group>"; };
+		962770881855492C00E0B1FD /* JYJMusicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYJMusicModel.m; sourceTree = "<group>"; };
 		96DB433B1854233000B7F739 /* Tuning Master.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tuning Master.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DB433E1854233000B7F739 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96DB43401854233000B7F739 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -141,6 +144,8 @@
 				96DB43501854233000B7F739 /* Main.storyboard */,
 				96DB43531854233000B7F739 /* JYJMainController.h */,
 				96DB43541854233000B7F739 /* JYJMainController.m */,
+				962770871855492C00E0B1FD /* JYJMusicModel.h */,
+				962770881855492C00E0B1FD /* JYJMusicModel.m */,
 				9627708418543A6D00E0B1FD /* JYJNote.h */,
 				9627708518543A6D00E0B1FD /* JYJNote.m */,
 				96277081185439C000E0B1FD /* JYJConstants.h */,
@@ -279,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96DB434F1854233000B7F739 /* JYJAppDelegate.m in Sources */,
+				962770891855492C00E0B1FD /* JYJMusicModel.m in Sources */,
 				96DB434B1854233000B7F739 /* main.m in Sources */,
 				96DB43551854233000B7F739 /* JYJMainController.m in Sources */,
 				9627708618543A6D00E0B1FD /* JYJNote.m in Sources */,

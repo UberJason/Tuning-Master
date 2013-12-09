@@ -36,10 +36,10 @@ static double originFrequency = 440.0;
 -(JYJNote *)initWithFrequency:(double)frequency noteLength:(double)noteLength {
     self = [self init];
     if(self) {
-        self.frequency = frequency;
-        self.noteLength = noteLength;
-        self.noteName = nil;
-        self.octaveNumber = -1;
+        _frequency = frequency;
+        _noteLength = noteLength;
+        _noteName = nil;
+        _octaveNumber = -1;
     }
     
     return self;
@@ -49,10 +49,10 @@ static double originFrequency = 440.0;
     self = [self init];
     if(self) {
     
-        self.noteName = [note componentsSeparatedByString:@"-"][0];
-        self.octaveNumber = [[note componentsSeparatedByString:@"-"][1] doubleValue];
-        self.noteLength = noteLength;
-        self.frequency = [JYJNote frequencyForNote:note];
+        _noteName = [note componentsSeparatedByString:@"-"][0];
+        _octaveNumber = [[note componentsSeparatedByString:@"-"][1] doubleValue];
+        _noteLength = noteLength;
+        _frequency = [JYJNote frequencyForNote:note];
     }
     
     return self;

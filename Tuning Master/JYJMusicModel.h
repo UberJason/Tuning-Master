@@ -1,20 +1,19 @@
 //
-//  JYJViewController.h
+//  JYJMusicModel.h
 //  Tuning Master
 //
-//  Created by Jason Ji on 12/7/13.
+//  Created by Jason Ji on 12/8/13.
 //  Copyright (c) 2013 Jason Ji. All rights reserved.
 //
 
-@import UIKit;
+@import Foundation;
 @import AudioToolbox;
 @import AVFoundation;
 @import AudioUnit;
 #import "JYJConstants.h"
 #import "JYJNote.h"
-#import "JYJMusicModel.h"
 
-@interface JYJMainController : UIViewController
+@interface JYJMusicModel : NSObject
 
 @property (nonatomic) AudioComponentInstance toneUnit;
 
@@ -33,5 +32,8 @@
 @property (strong, nonatomic) NSMutableArray *userList;
 @property (strong, nonatomic) NSMutableArray *sequenceToPlay;
 
-@property (strong, nonatomic) JYJMusicModel *model;
+-(JYJMusicModel *)initWithSampleRate:(double)sampleRate tempo:(double)tempo sequenceToPlay:(NSMutableArray *)sequenceToPlay;
+
+-(void)play;
+
 @end
