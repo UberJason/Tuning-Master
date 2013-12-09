@@ -111,11 +111,10 @@ OSStatus RenderTone(
 
 - (IBAction)play {
 
-//    [self setUpPlayList];
-    [self playMetronomeClick];
     [self playNoteInList:nil];
-
-    self.playlistTimer = [NSTimer scheduledTimerWithTimeInterval:[self timeIntervalForTempo:self.tempo]
+    [self playMetronomeClick];
+    
+    self.playlistTimer = [NSTimer scheduledTimerWithTimeInterval:[self timeIntervalForTempo:self.tempo]/4.0
                                                           target:self
                                                         selector:@selector(playNoteInList:)
                                                         userInfo:nil
@@ -126,18 +125,6 @@ OSStatus RenderTone(
                                                          userInfo:nil
                                                           repeats:YES];
 }
-
-//-(void)setUpPlayList {
-//    self.sequenceToPlay = [NSMutableArray new];
-//    for(JYJNote *noteObj in self.userList) {
-//        if(self.sequenceToPlay.lastObject && [noteObj hasSameFrequencyAs:self.sequenceToPlay.lastObject]) {
-//                ((JYJNote *)(self.sequenceToPlay.lastObject)).noteLength+= noteObj.noteLength;
-//        }
-//        else {
-//            [self.sequenceToPlay addObject:noteObj];
-//        }
-//    }
-//}
 
 -(void)playTone {
     NSLog(@"play tone");
@@ -167,29 +154,24 @@ OSStatus RenderTone(
 
 -(void)didFinishPlayingNote:(NSTimer *)timer {
     NSLog(@"didFinishPlayingNote, stopping tone");
-//    if([timer.userInfo boolValue])
         [self stopTone];
-//    [self playNoteInList:nil];
 }
 -(void)playMetronomeClick {
-//    NSLog(@"play metronome");
     NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"CABASA" ofType:@"wav"];
     SystemSoundID soundID;
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath: soundPath], &soundID);
     AudioServicesPlaySystemSound (soundID);
 }
 
--(void)playToneWithFrequency:(double)frequency duration:(NSTimeInterval)duration shorterThanQuarterNote:(BOOL)shortNote stopAtEnd:(BOOL)stop {
+-(void)playToneWithFrequency:(double)frequency duration:(NSTimeInterval)duration shorterThanQuarterNote:(BOOL)shortNote {
     NSLog(@"playToneWithFrequency duration = %f", duration);
     
-//    if(!self.toneUnit || self.noteFrequency != frequency) {    // if self.toneUnit exists, it's playing a note; if the note is different than the current note, stop it
     if(self.toneUnit)
         [self stopTone];
 
     self.noteFrequency = frequency;
     
     [self playTone];
-//    }
     
     if(shortNote) {
         // TODO: invalidate playlistTimer after short note's duration and make it fire and start again
@@ -197,8 +179,7 @@ OSStatus RenderTone(
     }
         
     
-//    if(stop)
-    self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(didFinishPlayingNote:) userInfo:[NSNumber numberWithBool:stop] repeats:NO];
+    self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(didFinishPlayingNote:) userInfo:nil repeats:NO];
 
 }
 
@@ -212,28 +193,25 @@ OSStatus RenderTone(
 
 -(void)playNoteInList:(NSTimer *)timer {
 
+    if(self.ignoreCount > 0) {
+        NSLog(@"ignoring!");
+        self.ignoreCount--;
+        return;
+    }
+    
+
+    
     if(self.indexOfSequence >= self.sequenceToPlay.count) {
         [self goodNote_EverybodyBackToOne];
         return;
     }
     
     JYJNote *note = self.sequenceToPlay[self.indexOfSequence];
-    NSLog(@"call playNoteInList - index = %d, note frequency = %f", self.indexOfSequence, note.frequency);
-    
+    self.ignoreCount = [JYJNote ignoreCountForNoteLength:note.noteLength];
     double frequency = note.frequency;
-    BOOL stop = NO;
+    NSLog(@"call playNoteInList - index = %d, note frequency = %f", self.indexOfSequence, note.frequency);
 
-//    if(self.indexOfSequence < self.sequenceToPlay.count-1)
-//        stop = NO;
-//    else
-//        stop = YES;
-    
-    
-//    if(self.toneUnit) {  // if the note is still playing and it's the same as the next note, let it go on.
-//        NSLog(@"note is still playing so NOT playing a new tone");
-//        return;
-//    }
-    [self playToneWithFrequency:frequency duration: [self timeIntervalForTempo:self.tempo noteLength:note.noteLength] shorterThanQuarterNote:(note.noteLength < QUARTER_NOTE) stopAtEnd:stop];
+    [self playToneWithFrequency:frequency duration: [self timeIntervalForTempo:self.tempo noteLength:note.noteLength] shorterThanQuarterNote:(note.noteLength < QUARTER_NOTE)];
     
     self.indexOfSequence++;
     
@@ -252,7 +230,6 @@ OSStatus RenderTone(
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-//    self.noteFrequency = 440.0;
 	self.sampleRate = 44100;
     
     AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -262,34 +239,26 @@ OSStatus RenderTone(
     self.tempo = 120.0;
     
     self.sequenceToPlay = [@[
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:QUARTER_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:QUARTER_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:QUARTER_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:QUARTER_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:G octave:4] noteLength:QUARTER_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:A octave:4] noteLength:QUARTER_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:B octave:4] noteLength:QUARTER_NOTE],
-                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:5] noteLength:QUARTER_NOTE]
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:WHOLE_NOTE],
+                            [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:5] noteLength:WHOLE_NOTE]
                             ] mutableCopy];
     
-//    self.sequenceToPlay = @[@(440), @(440), @(550), @(440), @(440), @(500), @(350)];
-//    self.sequenceToPlay = @[
-//                             [[JYJNote alloc] initWithFrequency:440 noteLength:EIGHTH_NOTE],
-//                             [[JYJNote alloc] initWithFrequency:500 noteLength:QUARTER_NOTE],
-//                             [[JYJNote alloc] initWithFrequency:550 noteLength:HALF_NOTE],
-//                             [[JYJNote alloc] initWithFrequency:500 noteLength:QUARTER_NOTE],
-//                             
-//                            ];
-
-//    self.sequenceToPlay = @[ [[JYJNote alloc] initWithNote: [NSString stringWithFormat:@"%@-%d", A_SHARP_B_FLAT, OCTAVE_4] noteLength:EIGHTH_NOTE] ];
-    
-//    self.sequenceToPlay = @[ [[JYJNote alloc] initWithFrequency:440 noteLength:WHOLE_NOTE] ];
-    
-//    NSLog(@"Distance from %@ to A-4: %d", [@[C_SHARP_D_FLAT, @(3)] componentsJoinedByString:@"-"],[JYJNote distanceToOriginFromNote:C_SHARP_D_FLAT octave:3]);
-    
-//    NSLog(@"frequency for A 4: %f", [JYJNote frequencyForNote: [JYJNote noteStringFromNote:A octave:4]]);
-//    [JYJNote setOriginFrequency:442.0];
-//    NSLog(@"frequency for A 4: %f", [JYJNote frequencyForNote: [JYJNote noteStringFromNote:A octave:4]]);
 }
 
 @end

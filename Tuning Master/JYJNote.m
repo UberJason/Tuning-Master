@@ -86,4 +86,10 @@ static double originFrequency = 440.0;
 
     return frequency;;
 }
+
++(NSInteger)ignoreCountForNoteLength:(double)noteLength {
+
+    return noteLength*4.0-1;
+    
+}
 @end

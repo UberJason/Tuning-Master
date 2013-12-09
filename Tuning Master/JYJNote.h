@@ -27,5 +27,6 @@
 +(double)originFrequency;
 +(void)setOriginFrequency:(double)newFreq;
 +(NSString *)noteStringFromNote:(NSString *)noteName octave:(NSInteger)octave;
++(NSInteger)ignoreCountForNoteLength:(double)noteLength;
 
 @end

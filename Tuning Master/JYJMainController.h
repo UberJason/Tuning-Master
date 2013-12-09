@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSTimer *metronomeTimer;
 
 @property (nonatomic) NSInteger indexOfSequence;
+@property (nonatomic) NSInteger ignoreCount;
 @property (strong, nonatomic) NSMutableArray *userList;
 @property (strong, nonatomic) NSMutableArray *sequenceToPlay;
 
