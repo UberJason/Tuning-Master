@@ -12,13 +12,14 @@
 @interface JYJNote : NSObject
 
 @property (nonatomic) double frequency;
-@property (nonatomic) double noteType;
+@property (nonatomic) double noteLength;
 @property (strong, nonatomic) NSString *noteName;
 @property (nonatomic) NSInteger octaveNumber;
 
--(JYJNote *)initWithFrequency:(double)frequency noteType:(double)noteType;
--(JYJNote *)initWithNote:(NSString *)note noteType:(double)noteType;
+-(JYJNote *)initWithFrequency:(double)frequency noteLength:(double)noteLength;
+-(JYJNote *)initWithNote:(NSString *)note noteLength:(double)noteLength;
 -(void)recomputeNoteFrequency;
+-(BOOL)hasSameFrequencyAs:(JYJNote *)other;
 
 +(NSInteger)distanceToOriginFromNote:(NSString *)noteName octave:(NSInteger)octave;
 +(double)frequencyForNote:(NSString *)note;

@@ -24,9 +24,11 @@
 @property (nonatomic) double theta;
 
 @property (strong, nonatomic) NSTimer *playlistTimer;
-@property (strong, nonatomic) NSTimer *noteTimer;
+@property (strong, nonatomic) NSTimer *stopTimer;
+@property (strong, nonatomic) NSTimer *metronomeTimer;
 
 @property (nonatomic) NSInteger indexOfSequence;
-@property (strong, nonatomic) NSArray *sequenceToPlay;
+@property (strong, nonatomic) NSMutableArray *userList;
+@property (strong, nonatomic) NSMutableArray *sequenceToPlay;
 
 @end

@@ -33,11 +33,11 @@ static double originFrequency = 440.0;
 }
 
 
--(JYJNote *)initWithFrequency:(double)frequency noteType:(double)noteType {
+-(JYJNote *)initWithFrequency:(double)frequency noteLength:(double)noteLength {
     self = [self init];
     if(self) {
         self.frequency = frequency;
-        self.noteType = noteType;
+        self.noteLength = noteLength;
         self.noteName = nil;
         self.octaveNumber = -1;
     }
@@ -45,13 +45,13 @@ static double originFrequency = 440.0;
     return self;
 }
 
--(JYJNote *)initWithNote:(NSString *)note noteType:(double)noteType {
+-(JYJNote *)initWithNote:(NSString *)note noteLength:(double)noteLength {
     self = [self init];
     if(self) {
     
         self.noteName = [note componentsSeparatedByString:@"-"][0];
         self.octaveNumber = [[note componentsSeparatedByString:@"-"][1] doubleValue];
-        self.noteType = noteType;
+        self.noteLength = noteLength;
         self.frequency = [JYJNote frequencyForNote:note];
     }
     
@@ -61,6 +61,10 @@ static double originFrequency = 440.0;
 -(void)recomputeNoteFrequency {
     NSString *note = [@[self.noteName, @(self.octaveNumber)] componentsJoinedByString:@"-"];
     self.frequency = [JYJNote frequencyForNote:note];
+}
+
+-(BOOL)hasSameFrequencyAs:(JYJNote *)other {
+    return (self.frequency == other.frequency || ([self.noteName isEqualToString:other.noteName] && self.octaveNumber == other.octaveNumber));
 }
 
 +(NSInteger)distanceToOriginFromNote:(NSString *)noteName octave:(NSInteger)octave {
