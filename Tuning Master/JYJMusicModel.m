@@ -9,6 +9,8 @@
 
 #import "JYJMusicModel.h"
 
+#pragma mark - RenderTone method (C API)
+
 OSStatus RenderTone(
                     void *inRefCon,
                     AudioUnitRenderActionFlags 	*ioActionFlags,
@@ -51,6 +53,8 @@ OSStatus RenderTone(
 
 @implementation JYJMusicModel
 
+#pragma mark - designated initializer
+
 -(JYJMusicModel *)initWithSampleRate:(double)sampleRate tempo:(double)tempo sequenceToPlay:(NSMutableArray *)sequenceToPlay {
     
     self = [self init];
@@ -59,10 +63,13 @@ OSStatus RenderTone(
         _sampleRate = sampleRate;
         _tempo = tempo;
         _sequenceToPlay = sequenceToPlay;
+        [self createToneUnit];
     }
     
     return self;
 }
+
+#pragma mark - music handling methods
 
 - (void)createToneUnit
 {
@@ -119,54 +126,8 @@ OSStatus RenderTone(
 	NSAssert1(err == noErr, @"Error setting stream format: %hd", err);
 }
 
-- (void)play {
-    
-    [self playNoteInList:nil];
-    [self playMetronomeClick];
-    
-    self.playlistTimer = [NSTimer scheduledTimerWithTimeInterval:[self timeIntervalForTempo:self.tempo]/4.0
-                                                          target:self
-                                                        selector:@selector(playNoteInList:)
-                                                        userInfo:nil
-                                                         repeats:YES];
-    self.metronomeTimer = [NSTimer scheduledTimerWithTimeInterval:[self timeIntervalForTempo:self.tempo]
-                                                           target:self
-                                                         selector:@selector(playMetronomeClick)
-                                                         userInfo:nil
-                                                          repeats:YES];
-}
-
--(void)playTone {
-    NSLog(@"play tone");
-    [self createToneUnit];
-    
-    // Stop changing parameters on the unit
-    OSErr err = AudioUnitInitialize(self.toneUnit);
-    NSAssert1(err == noErr, @"Error initializing unit: %hd", err);
-    
-    // Start playback
-    err = AudioOutputUnitStart(self.toneUnit);
-    NSAssert1(err == noErr, @"Error starting unit: %hd", err);
-}
-
--(void)stopTone {
-    NSLog(@"stop tone");
-    if (self.toneUnit)
-	{
-		AudioOutputUnitStop(self.toneUnit);
-		AudioUnitUninitialize(self.toneUnit);
-		AudioComponentInstanceDispose(self.toneUnit);
-		self.toneUnit = nil;
-        
-	}
-    [self.stopTimer invalidate];
-}
-
--(void)didFinishPlayingNote:(NSTimer *)timer {
-    NSLog(@"didFinishPlayingNote, stopping tone");
-    [self stopTone];
-}
 -(void)playMetronomeClick {
+    NSLog(@"play metronome click");
     NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"CABASA" ofType:@"wav"];
     SystemSoundID soundID;
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath: soundPath], &soundID);
@@ -183,7 +144,7 @@ OSStatus RenderTone(
     
     [self playTone];
     
-    self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(didFinishPlayingNote:) userInfo:nil repeats:NO];
+    self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(stopTone) userInfo:nil repeats:NO];
     
 }
 
@@ -193,6 +154,26 @@ OSStatus RenderTone(
 
 -(NSTimeInterval)timeIntervalForTempo:(double)tempo noteLength:(double)noteLength {
     return [self timeIntervalForTempo:self.tempo]*noteLength;
+}
+
+#pragma mark - play/stop control methods
+
+- (void)play {
+    [self goodNote_EverybodyBackToOne];
+    NSLog(@"****reset and CLICKED PLAY****");
+    [self playNoteInList:nil];
+    [self playMetronomeClick];
+    
+    self.playlistTimer = [NSTimer scheduledTimerWithTimeInterval:[self timeIntervalForTempo:self.tempo]/4.0
+                                                          target:self
+                                                        selector:@selector(playNoteInList:)
+                                                        userInfo:nil
+                                                         repeats:YES];
+    self.metronomeTimer = [NSTimer scheduledTimerWithTimeInterval:[self timeIntervalForTempo:self.tempo]
+                                                           target:self
+                                                         selector:@selector(playMetronomeClick)
+                                                         userInfo:nil
+                                                          repeats:YES];
 }
 
 -(void)playNoteInList:(NSTimer *)timer {
@@ -220,12 +201,42 @@ OSStatus RenderTone(
     
 }
 
+-(void)playTone {
+    NSLog(@"play tone");
+//    [self createToneUnit];
+    
+    // Stop changing parameters on the unit
+    OSErr err = AudioUnitInitialize(self.toneUnit);
+    NSAssert1(err == noErr, @"Error initializing unit: %hd", err);
+    
+    // Start playback
+    err = AudioOutputUnitStart(self.toneUnit);
+    NSAssert1(err == noErr, @"Error starting unit: %hd", err);
+}
+
+-(void)stopTone {
+//    NSLog(@"stop tone");
+    if (self.toneUnit)
+	{
+		AudioOutputUnitStop(self.toneUnit);
+//		AudioUnitUninitialize(self.toneUnit);
+//		AudioComponentInstanceDispose(self.toneUnit);
+//		self.toneUnit = nil;
+        
+	}
+    [self.stopTimer invalidate];
+}
+
 -(void)goodNote_EverybodyBackToOne {
     [self stopTone];
     [self.playlistTimer invalidate];
     [self.stopTimer invalidate];
     [self.metronomeTimer invalidate];
+    self.playlistTimer = nil;
+    self.stopTimer = nil;
+    self.metronomeTimer = nil;
     self.indexOfSequence = 0.0;
+    self.ignoreCount = 0;
 }
 
 
