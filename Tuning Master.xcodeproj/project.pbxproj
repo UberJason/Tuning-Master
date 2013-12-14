@@ -11,6 +11,10 @@
 		9627708618543A6D00E0B1FD /* JYJNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 9627708518543A6D00E0B1FD /* JYJNote.m */; };
 		962770891855492C00E0B1FD /* JYJMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 962770881855492C00E0B1FD /* JYJMusicModel.m */; };
 		9636E96B185C0120003EFCE5 /* JYJNoteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */; };
+		9636E9B7185C0B8E003EFCE5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9636E9B6185C0B8E003EFCE5 /* CoreData.framework */; };
+		96DAD51D185C0CC2001AEF91 /* TMDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */; };
+		96DAD52C185C0E53001AEF91 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD52B185C0E53001AEF91 /* Note.m */; };
+		96DAD52F185C0E54001AEF91 /* Sequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD52E185C0E54001AEF91 /* Sequence.m */; };
 		96DB433F1854233000B7F739 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB433E1854233000B7F739 /* Foundation.framework */; };
 		96DB43411854233000B7F739 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43401854233000B7F739 /* CoreGraphics.framework */; };
 		96DB43431854233000B7F739 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43421854233000B7F739 /* UIKit.framework */; };
@@ -41,13 +45,19 @@
 
 /* Begin PBXFileReference section */
 		9627707F1854293A00E0B1FD /* CABASA.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CABASA.wav; sourceTree = "<group>"; };
-		96277081185439C000E0B1FD /* JYJConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJConstants.h; sourceTree = "<group>"; };
-		9627708418543A6D00E0B1FD /* JYJNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJNote.h; sourceTree = "<group>"; };
-		9627708518543A6D00E0B1FD /* JYJNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYJNote.m; sourceTree = "<group>"; };
-		962770871855492C00E0B1FD /* JYJMusicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJMusicModel.h; sourceTree = "<group>"; };
-		962770881855492C00E0B1FD /* JYJMusicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYJMusicModel.m; sourceTree = "<group>"; };
-		9636E969185C0120003EFCE5 /* JYJNoteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJNoteHelper.h; sourceTree = "<group>"; };
-		9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYJNoteHelper.m; sourceTree = "<group>"; };
+		96277081185439C000E0B1FD /* Model */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = Model; sourceTree = "<group>"; };
+		9627708418543A6D00E0B1FD /* JYJNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYJNote.h; path = Model/JYJNote.h; sourceTree = "<group>"; };
+		9627708518543A6D00E0B1FD /* JYJNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJNote.m; path = Model/JYJNote.m; sourceTree = "<group>"; };
+		962770871855492C00E0B1FD /* JYJMusicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYJMusicModel.h; path = Model/JYJMusicModel.h; sourceTree = "<group>"; };
+		962770881855492C00E0B1FD /* JYJMusicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJMusicModel.m; path = Model/JYJMusicModel.m; sourceTree = "<group>"; };
+		9636E969185C0120003EFCE5 /* JYJNoteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYJNoteHelper.h; path = Model/JYJNoteHelper.h; sourceTree = "<group>"; };
+		9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJNoteHelper.m; path = Model/JYJNoteHelper.m; sourceTree = "<group>"; };
+		9636E9B6185C0B8E003EFCE5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		96DAD51C185C0CC2001AEF91 /* TMDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMDataModel.xcdatamodel; sourceTree = "<group>"; };
+		96DAD52A185C0E53001AEF91 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = "Core Data/Note.h"; sourceTree = "<group>"; };
+		96DAD52B185C0E53001AEF91 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Note.m; path = "Core Data/Note.m"; sourceTree = "<group>"; };
+		96DAD52D185C0E54001AEF91 /* Sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sequence.h; path = "Core Data/Sequence.h"; sourceTree = "<group>"; };
+		96DAD52E185C0E54001AEF91 /* Sequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sequence.m; path = "Core Data/Sequence.m"; sourceTree = "<group>"; };
 		96DB433B1854233000B7F739 /* Tuning Master.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tuning Master.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DB433E1854233000B7F739 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		96DB43401854233000B7F739 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -76,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9636E9B7185C0B8E003EFCE5 /* CoreData.framework in Frameworks */,
 				96DB43761854240D00B7F739 /* AVFoundation.framework in Frameworks */,
 				96DB43741854240400B7F739 /* AudioToolbox.framework in Frameworks */,
 				96DB43411854233000B7F739 /* CoreGraphics.framework in Frameworks */,
@@ -106,6 +117,31 @@
 			path = "Tuning Master";
 			sourceTree = "<group>";
 		};
+		96DAD530185C0E77001AEF91 /* Core Data Entities */ = {
+			isa = PBXGroup;
+			children = (
+				96DAD52D185C0E54001AEF91 /* Sequence.h */,
+				96DAD52E185C0E54001AEF91 /* Sequence.m */,
+				96DAD52A185C0E53001AEF91 /* Note.h */,
+				96DAD52B185C0E53001AEF91 /* Note.m */,
+			);
+			name = "Core Data Entities";
+			sourceTree = "<group>";
+		};
+		96DAD531185C0E90001AEF91 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				962770871855492C00E0B1FD /* JYJMusicModel.h */,
+				962770881855492C00E0B1FD /* JYJMusicModel.m */,
+				9636E969185C0120003EFCE5 /* JYJNoteHelper.h */,
+				9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */,
+				9627708418543A6D00E0B1FD /* JYJNote.h */,
+				9627708518543A6D00E0B1FD /* JYJNote.m */,
+				96277081185439C000E0B1FD /* Model */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		96DB43321854233000B7F739 = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +165,7 @@
 		96DB433D1854233000B7F739 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9636E9B6185C0B8E003EFCE5 /* CoreData.framework */,
 				96DB43751854240D00B7F739 /* AVFoundation.framework */,
 				96DB43731854240400B7F739 /* AudioToolbox.framework */,
 				96DB433E1854233000B7F739 /* Foundation.framework */,
@@ -142,18 +179,12 @@
 		96DB43441854233000B7F739 /* Tuning Master */ = {
 			isa = PBXGroup;
 			children = (
-				96DB434D1854233000B7F739 /* JYJAppDelegate.h */,
-				96DB434E1854233000B7F739 /* JYJAppDelegate.m */,
+				96DAD531185C0E90001AEF91 /* Model */,
+				96DAD530185C0E77001AEF91 /* Core Data Entities */,
 				96DB43501854233000B7F739 /* Main.storyboard */,
 				96DB43531854233000B7F739 /* JYJMainController.h */,
 				96DB43541854233000B7F739 /* JYJMainController.m */,
-				962770871855492C00E0B1FD /* JYJMusicModel.h */,
-				962770881855492C00E0B1FD /* JYJMusicModel.m */,
-				9636E969185C0120003EFCE5 /* JYJNoteHelper.h */,
-				9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */,
-				9627708418543A6D00E0B1FD /* JYJNote.h */,
-				9627708518543A6D00E0B1FD /* JYJNote.m */,
-				96277081185439C000E0B1FD /* JYJConstants.h */,
+				96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */,
 				96DB43561854233000B7F739 /* Images.xcassets */,
 				96DB43451854233000B7F739 /* Supporting Files */,
 			);
@@ -163,6 +194,8 @@
 		96DB43451854233000B7F739 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				96DB434D1854233000B7F739 /* JYJAppDelegate.h */,
+				96DB434E1854233000B7F739 /* JYJAppDelegate.m */,
 				96DB43461854233000B7F739 /* Tuning Master-Info.plist */,
 				96DB43471854233000B7F739 /* InfoPlist.strings */,
 				96DB434A1854233000B7F739 /* main.m */,
@@ -288,12 +321,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96DAD52C185C0E53001AEF91 /* Note.m in Sources */,
 				96DB434F1854233000B7F739 /* JYJAppDelegate.m in Sources */,
 				962770891855492C00E0B1FD /* JYJMusicModel.m in Sources */,
 				96DB434B1854233000B7F739 /* main.m in Sources */,
 				96DB43551854233000B7F739 /* JYJMainController.m in Sources */,
+				96DAD52F185C0E54001AEF91 /* Sequence.m in Sources */,
 				9627708618543A6D00E0B1FD /* JYJNote.m in Sources */,
 				9636E96B185C0120003EFCE5 /* JYJNoteHelper.m in Sources */,
+				96DAD51D185C0CC2001AEF91 /* TMDataModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +550,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				96DAD51C185C0CC2001AEF91 /* TMDataModel.xcdatamodel */,
+			);
+			currentVersion = 96DAD51C185C0CC2001AEF91 /* TMDataModel.xcdatamodel */;
+			name = TMDataModel.xcdatamodeld;
+			path = ../TMDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 96DB43331854233000B7F739 /* Project object */;
 }
