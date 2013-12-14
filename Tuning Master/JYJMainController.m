@@ -24,6 +24,11 @@
 - (IBAction)stop {
     [self.model goodNote_EverybodyBackToOne];
 }
+- (IBAction)changeFrequency {
+    [JYJNoteHelper setOriginFrequency:550];
+    for(JYJNote *note in self.model.sequenceToPlay)
+        [note recomputeNoteFrequency];
+}
 
 - (void)viewDidLoad
 {

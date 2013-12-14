@@ -14,20 +14,10 @@
 
 @implementation JYJNote
 
-static double originFrequency = 440.0;
-
 +(NSArray *)noteArray {
     return @[C, C_SHARP_D_FLAT, D, D_SHARP_E_FLAT, E, F, F_SHARP_G_FLAT, G, G_SHARP_A_FLAT, A, A_SHARP_B_FLAT, B];
 }
-+(NSString *)originNote {
-    return A;
-}
-+(double)originFrequency {
-    return originFrequency;
-}
-+(void)setOriginFrequency:(double)newFreq {
-    originFrequency = newFreq;
-}
+
 +(NSString *)noteStringFromNote:(NSString *)noteName octave:(NSInteger)octave {
     return [@[noteName, @(octave)] componentsJoinedByString:@"-"];
 }
@@ -97,7 +87,7 @@ static double originFrequency = 440.0;
     NSInteger distanceFromOrigin = [self distanceToOriginFromNote:noteComponents[0] octave:[noteComponents[1] integerValue]];
     
     double a = pow(2, 1.0/12.0);
-    double frequency = [self originFrequency] * pow(a, distanceFromOrigin);
+    double frequency = [JYJNoteHelper originFrequency] * pow(a, distanceFromOrigin);
 
     return frequency;;
 }

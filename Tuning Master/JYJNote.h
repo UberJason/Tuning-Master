@@ -8,6 +8,7 @@
 
 @import Foundation;
 #import "JYJConstants.h"
+#import "JYJNoteHelper.h"
 
 @interface JYJNote : NSObject
 
@@ -26,9 +27,6 @@
 
 +(NSInteger)distanceToOriginFromNote:(NSString *)noteName octave:(NSInteger)octave;
 +(double)frequencyForNote:(NSString *)note;
-+(NSString *)originNote;
-+(double)originFrequency;
-+(void)setOriginFrequency:(double)newFreq;
 +(NSString *)noteStringFromNote:(NSString *)noteName octave:(NSInteger)octave;
 +(NSInteger)ignoreCountForNoteLength:(double)noteLength;
 

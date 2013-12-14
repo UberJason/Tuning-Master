@@ -34,4 +34,5 @@
 @property (strong, nonatomic) NSMutableArray *sequenceToPlay;
 
 @property (strong, nonatomic) JYJMusicModel *model;
+
 @end
