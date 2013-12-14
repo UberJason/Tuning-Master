@@ -13,6 +13,9 @@
 #import "JYJConstants.h"
 #import "JYJNote.h"
 #import "JYJMusicModel.h"
+#import "JYJAppDelegate.h"
+#import "Note.h"
+#import "Sequence.h"
 
 @interface JYJMainController : UIViewController
 
@@ -34,5 +37,6 @@
 @property (strong, nonatomic) NSMutableArray *sequenceToPlay;
 
 @property (strong, nonatomic) JYJMusicModel *model;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

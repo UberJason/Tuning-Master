@@ -15,6 +15,11 @@
 
 @implementation JYJMainController
 
+-(NSManagedObjectContext *)managedObjectContext {
+    if(!_managedObjectContext)
+        _managedObjectContext = [(JYJAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    return _managedObjectContext;
+}
 
 - (IBAction)play {
 
@@ -65,7 +70,49 @@
                                                ] mutableCopy];
     
     self.model = [[JYJMusicModel alloc] initWithSampleRate:sampleRate tempo:tempo sequenceToPlay:straightNotesSequence];
+
     
+//    Note* note = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:self.managedObjectContext];
+//    note.frequency = @(440.0);
+//    note.noteLength = @(QUARTER_NOTE);
+//    note.noteName = @"A-4";
+//    note.octaveNumber = @(4);
+//    note.rest = @(NO);
+//    
+//    Note* note2 = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:self.managedObjectContext];
+//    note2.frequency = @(440.0);
+//    note2.noteLength = @(QUARTER_NOTE);
+//    note2.noteName = @"A-4";
+//    note2.octaveNumber = @(4);
+//    note2.rest = @(NO);
+//    
+//    Note* note3 = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:self.managedObjectContext];
+//    note3.frequency = @(440.0);
+//    note3.noteLength = @(QUARTER_NOTE);
+//    note3.noteName = @"A-4";
+//    note3.octaveNumber = @(4);
+//    note3.rest = @(NO);
+//    
+//    Sequence *sequence = [NSEntityDescription insertNewObjectForEntityForName:@"Sequence" inManagedObjectContext:self.managedObjectContext];
+//    sequence.sequenceName = @"Test1";
+//    NSOrderedSet *myNotes = [NSOrderedSet orderedSetWithArray:@[note, note2, note3]];
+//    sequence.notes = myNotes;
+//    
+//    JYJAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+//    [delegate saveContext];
+//
+//    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Sequence"];
+//    NSError *error;
+//    NSArray *sequences = [self.managedObjectContext executeFetchRequest:request error:&error];
+//    NSLog(@"sequences count: %d", sequences.count);
+//    
+//    Sequence *sequence = sequences[0];
+//    NSOrderedSet *set = sequence.notes;
+//    NSLog(@"sequence name: %@", sequence.sequenceName);
+//    for(Note *note in set) {
+//        NSLog(@"note: %@ duration: %f", note.noteName, [note.noteLength doubleValue]);
+//        
+//    }
 }
 
 @end
