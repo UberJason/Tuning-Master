@@ -14,8 +14,8 @@
 #import "JYJNote.h"
 #import "JYJMusicModel.h"
 #import "JYJAppDelegate.h"
-#import "Note.h"
-#import "Sequence.h"
+#import "Note+Helpers.h"
+#import "Sequence+Helpers.h"
 
 @interface JYJMainController : UIViewController
 

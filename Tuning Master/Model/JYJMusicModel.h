@@ -11,7 +11,8 @@
 @import AVFoundation;
 @import AudioUnit;
 #import "JYJConstants.h"
-#import "JYJNote.h"
+//#import "JYJNote.h"
+#import "Note+Helpers.h"
 
 @interface JYJMusicModel : NSObject
 
@@ -29,10 +30,9 @@
 
 @property (nonatomic) NSInteger indexOfSequence;
 @property (nonatomic) NSInteger ignoreCount;
-@property (strong, nonatomic) NSMutableArray *userList;
-@property (strong, nonatomic) NSMutableArray *sequenceToPlay;
+@property (strong, nonatomic) NSArray *sequenceToPlay;
 
--(JYJMusicModel *)initWithSampleRate:(double)sampleRate tempo:(double)tempo sequenceToPlay:(NSMutableArray *)sequenceToPlay;
+-(JYJMusicModel *)initWithSampleRate:(double)sampleRate tempo:(double)tempo sequenceToPlay:(NSArray *)sequenceToPlay;
 
 -(void)play;
 -(void)goodNote_EverybodyBackToOne;

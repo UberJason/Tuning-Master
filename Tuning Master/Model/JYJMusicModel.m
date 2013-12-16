@@ -55,7 +55,7 @@ OSStatus RenderTone(
 
 #pragma mark - designated initializer
 
--(JYJMusicModel *)initWithSampleRate:(double)sampleRate tempo:(double)tempo sequenceToPlay:(NSMutableArray *)sequenceToPlay {
+-(JYJMusicModel *)initWithSampleRate:(double)sampleRate tempo:(double)tempo sequenceToPlay:(NSArray *)sequenceToPlay {
     
     self = [self init];
     
@@ -184,18 +184,18 @@ OSStatus RenderTone(
         return;
     }
     
-    if(self.indexOfSequence >= self.sequenceToPlay.count) {
+    if(self.indexOfSequence >= [self.sequenceToPlay count]) {
         [self goodNote_EverybodyBackToOne];
         return;
     }
     
-    JYJNote *note = self.sequenceToPlay[self.indexOfSequence];
-    self.ignoreCount = [JYJNote ignoreCountForNoteLength:note.noteLength];
-    double frequency = note.frequency;
-    NSLog(@"call playNoteInList - index = %d, note frequency = %f %@", self.indexOfSequence, note.frequency, (note.isRest ? @"REST" : @""));
+    Note *note = self.sequenceToPlay[self.indexOfSequence];
+    self.ignoreCount = [Note ignoreCountForNoteLength:[note.noteLength doubleValue]];
+    double frequency = [note.frequency doubleValue];
+    NSLog(@"call playNoteInList - index = %d, note frequency = %f %@", self.indexOfSequence, [note.frequency doubleValue], (note.rest ? @"REST" : @""));
     
-    if(!note.isRest)
-        [self playToneWithFrequency:frequency duration: [self timeIntervalForTempo:self.tempo noteLength:note.noteLength]];
+    if(!note.rest)
+        [self playToneWithFrequency:frequency duration: [self timeIntervalForTempo:self.tempo noteLength:[note.noteLength doubleValue]]];
     
     self.indexOfSequence++;
     

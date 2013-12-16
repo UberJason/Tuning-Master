@@ -12,6 +12,7 @@
 		962770891855492C00E0B1FD /* JYJMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 962770881855492C00E0B1FD /* JYJMusicModel.m */; };
 		9636E96B185C0120003EFCE5 /* JYJNoteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */; };
 		9636E9B7185C0B8E003EFCE5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9636E9B6185C0B8E003EFCE5 /* CoreData.framework */; };
+		96B0EDF1185EA14E0004FE6E /* Sequence+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B0EDF0185EA14E0004FE6E /* Sequence+Helpers.m */; };
 		96DAD51D185C0CC2001AEF91 /* TMDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */; };
 		96DAD52C185C0E53001AEF91 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD52B185C0E53001AEF91 /* Note.m */; };
 		96DAD52F185C0E54001AEF91 /* Sequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD52E185C0E54001AEF91 /* Sequence.m */; };
@@ -53,6 +54,8 @@
 		9636E969185C0120003EFCE5 /* JYJNoteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYJNoteHelper.h; path = Model/JYJNoteHelper.h; sourceTree = "<group>"; };
 		9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJNoteHelper.m; path = Model/JYJNoteHelper.m; sourceTree = "<group>"; };
 		9636E9B6185C0B8E003EFCE5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		96B0EDEF185EA14E0004FE6E /* Sequence+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Sequence+Helpers.h"; path = "Core Data/Sequence+Helpers.h"; sourceTree = "<group>"; };
+		96B0EDF0185EA14E0004FE6E /* Sequence+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Sequence+Helpers.m"; path = "Core Data/Sequence+Helpers.m"; sourceTree = "<group>"; };
 		96DAD51C185C0CC2001AEF91 /* TMDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMDataModel.xcdatamodel; sourceTree = "<group>"; };
 		96DAD52A185C0E53001AEF91 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = "Core Data/Note.h"; sourceTree = "<group>"; };
 		96DAD52B185C0E53001AEF91 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Note.m; path = "Core Data/Note.m"; sourceTree = "<group>"; };
@@ -229,6 +232,8 @@
 		96FF5583185E3B03005CC503 /* Core Data Categories */ = {
 			isa = PBXGroup;
 			children = (
+				96B0EDEF185EA14E0004FE6E /* Sequence+Helpers.h */,
+				96B0EDF0185EA14E0004FE6E /* Sequence+Helpers.m */,
 				96FF5584185E3B1A005CC503 /* Note+Helpers.h */,
 				96FF5585185E3B1A005CC503 /* Note+Helpers.m */,
 			);
@@ -334,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96B0EDF1185EA14E0004FE6E /* Sequence+Helpers.m in Sources */,
 				96DAD52C185C0E53001AEF91 /* Note.m in Sources */,
 				96DB434F1854233000B7F739 /* JYJAppDelegate.m in Sources */,
 				962770891855492C00E0B1FD /* JYJMusicModel.m in Sources */,
