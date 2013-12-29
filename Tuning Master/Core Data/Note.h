@@ -2,7 +2,7 @@
 //  Note.h
 //  Tuning Master
 //
-//  Created by Jason Ji on 12/13/13.
+//  Created by Jason Ji on 12/28/13.
 //  Copyright (c) 2013 Jason Ji. All rights reserved.
 //
 
@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSString * noteName;
 @property (nonatomic, retain) NSNumber * octaveNumber;
 @property (nonatomic, retain) NSNumber * rest;
+@property (nonatomic, retain) NSString * baseNoteName;
+@property (nonatomic, retain) NSNumber * halfStep;
 @property (nonatomic, retain) Sequence *sequence;
 
 @end

@@ -16,8 +16,9 @@
 #import "JYJAppDelegate.h"
 #import "Note+Helpers.h"
 #import "Sequence+Helpers.h"
+#import "JYJNoteCell.h"
 
-@interface JYJMainController : UIViewController
+@interface JYJMainController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic) AudioComponentInstance toneUnit;
 
@@ -34,7 +35,7 @@
 @property (nonatomic) NSInteger indexOfSequence;
 @property (nonatomic) NSInteger ignoreCount;
 @property (strong, nonatomic) NSMutableArray *userList;
-@property (strong, nonatomic) NSMutableArray *sequenceToPlay;
+//@property (strong, nonatomic) NSMutableArray *sequenceToPlay;
 
 @property (strong, nonatomic) JYJMusicModel *model;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

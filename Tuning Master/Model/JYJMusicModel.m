@@ -55,14 +55,21 @@ OSStatus RenderTone(
 
 #pragma mark - designated initializer
 
--(JYJMusicModel *)initWithSampleRate:(double)sampleRate tempo:(double)tempo sequenceToPlay:(NSArray *)sequenceToPlay {
+-(JYJMusicModel *)initWithSampleRate:(double)sampleRate tempo:(double)tempo sequence:(Sequence *)sequence {
     
     self = [self init];
     
     if(self) {
         _sampleRate = sampleRate;
         _tempo = tempo;
-        _sequenceToPlay = sequenceToPlay;
+        _sequence = sequence;
+        
+        NSMutableArray *tempSequence = [NSMutableArray new];
+        for(Note *note in _sequence.notes)
+            [tempSequence addObject: note];
+        
+        _sequenceToPlay = [NSArray arrayWithArray:tempSequence];
+        
         [self createToneUnit];
     }
     
@@ -192,7 +199,7 @@ OSStatus RenderTone(
     Note *note = self.sequenceToPlay[self.indexOfSequence];
     self.ignoreCount = [Note ignoreCountForNoteLength:[note.noteLength doubleValue]];
     double frequency = [note.frequency doubleValue];
-    NSLog(@"call playNoteInList - index = %d, note frequency = %f %@", self.indexOfSequence, [note.frequency doubleValue], (note.rest ? @"REST" : @""));
+    NSLog(@"call playNoteInList - index = %ld, note frequency = %f %@", (long)self.indexOfSequence, [note.frequency doubleValue], (note.rest ? @"REST" : @""));
     
     if(!note.rest)
         [self playToneWithFrequency:frequency duration: [self timeIntervalForTempo:self.tempo noteLength:[note.noteLength doubleValue]]];

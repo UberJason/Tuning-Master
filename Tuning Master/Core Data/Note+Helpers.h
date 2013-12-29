@@ -15,10 +15,12 @@
 
 +(Note *)noteWithFrequency:(double)frequency noteLength:(double)noteLength;
 +(Note *)noteWithNote:(NSString *)note noteLength:(double)noteLength;
++(Note *)noteWithBaseNote:(NSString *)note halfStep:(NSInteger)halfStep noteLength:(double)noteLength;
 +(Note *)noteWithRestForLength:(double)noteLength;
 
 -(void)recomputeNoteFrequency;
 -(BOOL)hasSameFrequencyAs:(Note *)other;
+-(BOOL)isRest;
 
 +(NSInteger)distanceToOriginFromNote:(NSString *)noteName octave:(NSInteger)octave;
 +(double)frequencyForNote:(NSString *)note;

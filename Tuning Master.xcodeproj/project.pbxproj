@@ -12,9 +12,12 @@
 		962770891855492C00E0B1FD /* JYJMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 962770881855492C00E0B1FD /* JYJMusicModel.m */; };
 		9636E96B185C0120003EFCE5 /* JYJNoteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */; };
 		9636E9B7185C0B8E003EFCE5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9636E9B6185C0B8E003EFCE5 /* CoreData.framework */; };
+		9654AB4C186F91A200CFD756 /* JYJNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9654AB4B186F91A200CFD756 /* JYJNoteCell.m */; };
+		9654AB57186FA35A00CFD756 /* flat.png in Resources */ = {isa = PBXBuildFile; fileRef = 9654AB4E186FA35A00CFD756 /* flat.png */; };
+		9654AB5E186FA35A00CFD756 /* natural.png in Resources */ = {isa = PBXBuildFile; fileRef = 9654AB55186FA35A00CFD756 /* natural.png */; };
+		9654AB5F186FA35A00CFD756 /* sharp.png in Resources */ = {isa = PBXBuildFile; fileRef = 9654AB56186FA35A00CFD756 /* sharp.png */; };
 		96B0EDF1185EA14E0004FE6E /* Sequence+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B0EDF0185EA14E0004FE6E /* Sequence+Helpers.m */; };
 		96DAD51D185C0CC2001AEF91 /* TMDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */; };
-		96DAD52C185C0E53001AEF91 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD52B185C0E53001AEF91 /* Note.m */; };
 		96DAD52F185C0E54001AEF91 /* Sequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD52E185C0E54001AEF91 /* Sequence.m */; };
 		96DB433F1854233000B7F739 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB433E1854233000B7F739 /* Foundation.framework */; };
 		96DB43411854233000B7F739 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43401854233000B7F739 /* CoreGraphics.framework */; };
@@ -32,6 +35,13 @@
 		96DB436A1854233000B7F739 /* Tuning_MasterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB43691854233000B7F739 /* Tuning_MasterTests.m */; };
 		96DB43741854240400B7F739 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43731854240400B7F739 /* AudioToolbox.framework */; };
 		96DB43761854240D00B7F739 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB43751854240D00B7F739 /* AVFoundation.framework */; };
+		96F5646C186FAA5F0062592A /* eighth_note.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F56466186FAA5F0062592A /* eighth_note.png */; };
+		96F5646D186FAA5F0062592A /* half_note.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F56467186FAA5F0062592A /* half_note.png */; };
+		96F5646E186FAA5F0062592A /* quarter_note.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F56468186FAA5F0062592A /* quarter_note.png */; };
+		96F5646F186FAA5F0062592A /* quarter_rest.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F56469186FAA5F0062592A /* quarter_rest.png */; };
+		96F56470186FAA5F0062592A /* sixteenth_note.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F5646A186FAA5F0062592A /* sixteenth_note.png */; };
+		96F56471186FAA5F0062592A /* whole_note.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F5646B186FAA5F0062592A /* whole_note.png */; };
+		96F56474186FBEA70062592A /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F56473186FBEA70062592A /* Note.m */; };
 		96FF5586185E3B1A005CC503 /* Note+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FF5585185E3B1A005CC503 /* Note+Helpers.m */; };
 /* End PBXBuildFile section */
 
@@ -54,11 +64,14 @@
 		9636E969185C0120003EFCE5 /* JYJNoteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYJNoteHelper.h; path = Model/JYJNoteHelper.h; sourceTree = "<group>"; };
 		9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJNoteHelper.m; path = Model/JYJNoteHelper.m; sourceTree = "<group>"; };
 		9636E9B6185C0B8E003EFCE5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9654AB4A186F91A200CFD756 /* JYJNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJNoteCell.h; sourceTree = "<group>"; };
+		9654AB4B186F91A200CFD756 /* JYJNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYJNoteCell.m; sourceTree = "<group>"; };
+		9654AB4E186FA35A00CFD756 /* flat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flat.png; path = images/flat.png; sourceTree = "<group>"; };
+		9654AB55186FA35A00CFD756 /* natural.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = natural.png; path = images/natural.png; sourceTree = "<group>"; };
+		9654AB56186FA35A00CFD756 /* sharp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sharp.png; path = images/sharp.png; sourceTree = "<group>"; };
 		96B0EDEF185EA14E0004FE6E /* Sequence+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Sequence+Helpers.h"; path = "Core Data/Sequence+Helpers.h"; sourceTree = "<group>"; };
 		96B0EDF0185EA14E0004FE6E /* Sequence+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Sequence+Helpers.m"; path = "Core Data/Sequence+Helpers.m"; sourceTree = "<group>"; };
 		96DAD51C185C0CC2001AEF91 /* TMDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMDataModel.xcdatamodel; sourceTree = "<group>"; };
-		96DAD52A185C0E53001AEF91 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = "Core Data/Note.h"; sourceTree = "<group>"; };
-		96DAD52B185C0E53001AEF91 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Note.m; path = "Core Data/Note.m"; sourceTree = "<group>"; };
 		96DAD52D185C0E54001AEF91 /* Sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sequence.h; path = "Core Data/Sequence.h"; sourceTree = "<group>"; };
 		96DAD52E185C0E54001AEF91 /* Sequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sequence.m; path = "Core Data/Sequence.m"; sourceTree = "<group>"; };
 		96DAD532185C0F19001AEF91 /* JYJConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JYJConstants.h; path = Model/JYJConstants.h; sourceTree = "<group>"; };
@@ -83,6 +96,14 @@
 		96DB43691854233000B7F739 /* Tuning_MasterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tuning_MasterTests.m; sourceTree = "<group>"; };
 		96DB43731854240400B7F739 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		96DB43751854240D00B7F739 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		96F56466186FAA5F0062592A /* eighth_note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = eighth_note.png; path = images/eighth_note.png; sourceTree = "<group>"; };
+		96F56467186FAA5F0062592A /* half_note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = half_note.png; path = images/half_note.png; sourceTree = "<group>"; };
+		96F56468186FAA5F0062592A /* quarter_note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = quarter_note.png; path = images/quarter_note.png; sourceTree = "<group>"; };
+		96F56469186FAA5F0062592A /* quarter_rest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = quarter_rest.png; path = images/quarter_rest.png; sourceTree = "<group>"; };
+		96F5646A186FAA5F0062592A /* sixteenth_note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sixteenth_note.png; path = images/sixteenth_note.png; sourceTree = "<group>"; };
+		96F5646B186FAA5F0062592A /* whole_note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whole_note.png; path = images/whole_note.png; sourceTree = "<group>"; };
+		96F56472186FBEA70062592A /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = "Core Data/Note.h"; sourceTree = "<group>"; };
+		96F56473186FBEA70062592A /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Note.m; path = "Core Data/Note.m"; sourceTree = "<group>"; };
 		96FF5584185E3B1A005CC503 /* Note+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Note+Helpers.h"; path = "Core Data/Note+Helpers.h"; sourceTree = "<group>"; };
 		96FF5585185E3B1A005CC503 /* Note+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Note+Helpers.m"; path = "Core Data/Note+Helpers.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,13 +144,29 @@
 			path = "Tuning Master";
 			sourceTree = "<group>";
 		};
+		9654AB4D186FA35000CFD756 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				9654AB4E186FA35A00CFD756 /* flat.png */,
+				96F56466186FAA5F0062592A /* eighth_note.png */,
+				96F56467186FAA5F0062592A /* half_note.png */,
+				96F56468186FAA5F0062592A /* quarter_note.png */,
+				96F56469186FAA5F0062592A /* quarter_rest.png */,
+				96F5646A186FAA5F0062592A /* sixteenth_note.png */,
+				96F5646B186FAA5F0062592A /* whole_note.png */,
+				9654AB55186FA35A00CFD756 /* natural.png */,
+				9654AB56186FA35A00CFD756 /* sharp.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		96DAD530185C0E77001AEF91 /* Core Data Entities */ = {
 			isa = PBXGroup;
 			children = (
+				96F56472186FBEA70062592A /* Note.h */,
+				96F56473186FBEA70062592A /* Note.m */,
 				96DAD52D185C0E54001AEF91 /* Sequence.h */,
 				96DAD52E185C0E54001AEF91 /* Sequence.m */,
-				96DAD52A185C0E53001AEF91 /* Note.h */,
-				96DAD52B185C0E53001AEF91 /* Note.m */,
 			);
 			name = "Core Data Entities";
 			sourceTree = "<group>";
@@ -185,12 +222,15 @@
 		96DB43441854233000B7F739 /* Tuning Master */ = {
 			isa = PBXGroup;
 			children = (
+				9654AB4D186FA35000CFD756 /* images */,
 				96DAD531185C0E90001AEF91 /* Model */,
 				96FF5583185E3B03005CC503 /* Core Data Categories */,
 				96DAD530185C0E77001AEF91 /* Core Data Entities */,
 				96DB43501854233000B7F739 /* Main.storyboard */,
 				96DB43531854233000B7F739 /* JYJMainController.h */,
 				96DB43541854233000B7F739 /* JYJMainController.m */,
+				9654AB4A186F91A200CFD756 /* JYJNoteCell.h */,
+				9654AB4B186F91A200CFD756 /* JYJNoteCell.m */,
 				96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */,
 				96DB43561854233000B7F739 /* Images.xcassets */,
 				96DB43451854233000B7F739 /* Supporting Files */,
@@ -317,9 +357,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96F5646C186FAA5F0062592A /* eighth_note.png in Resources */,
+				9654AB5E186FA35A00CFD756 /* natural.png in Resources */,
+				96F5646D186FAA5F0062592A /* half_note.png in Resources */,
+				9654AB5F186FA35A00CFD756 /* sharp.png in Resources */,
+				96F5646F186FAA5F0062592A /* quarter_rest.png in Resources */,
 				96DB43571854233000B7F739 /* Images.xcassets in Resources */,
+				96F56470186FAA5F0062592A /* sixteenth_note.png in Resources */,
+				9654AB57186FA35A00CFD756 /* flat.png in Resources */,
+				96F5646E186FAA5F0062592A /* quarter_note.png in Resources */,
 				962770801854293A00E0B1FD /* CABASA.wav in Resources */,
 				96DB43491854233000B7F739 /* InfoPlist.strings in Resources */,
+				96F56471186FAA5F0062592A /* whole_note.png in Resources */,
 				96DB43521854233000B7F739 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,8 +389,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				96B0EDF1185EA14E0004FE6E /* Sequence+Helpers.m in Sources */,
-				96DAD52C185C0E53001AEF91 /* Note.m in Sources */,
 				96DB434F1854233000B7F739 /* JYJAppDelegate.m in Sources */,
+				9654AB4C186F91A200CFD756 /* JYJNoteCell.m in Sources */,
+				96F56474186FBEA70062592A /* Note.m in Sources */,
 				962770891855492C00E0B1FD /* JYJMusicModel.m in Sources */,
 				96DB434B1854233000B7F739 /* main.m in Sources */,
 				96DB43551854233000B7F739 /* JYJMainController.m in Sources */,

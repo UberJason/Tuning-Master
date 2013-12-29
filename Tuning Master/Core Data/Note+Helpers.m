@@ -50,6 +50,31 @@
     return note;
 }
 
++(Note *)noteWithBaseNote:(NSString *)noteName halfStep:(NSInteger)halfStep noteLength:(double)noteLength {
+   
+    // if halfStep == 1, note is a sharp. e.g. noteName = C_SHARP_D_FLAT, halfStep = 1, means this is C#.
+    // Then, baseNoteName = C.
+    // if halfStep == 0, note is natural. baseNoteName = noteName.
+    // if halfStep == -1, note is a flat. e.g. noteName = D_SHARP_E_FLAT, halfStep = -1, means this is Eb.
+    // Then, baseNoteName = E.
+    
+    NSManagedObjectContext *managedObjectContext = [(JYJAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    
+    Note *note = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:managedObjectContext];
+    note.baseNoteName = [noteName componentsSeparatedByString:@"-"][0];
+    note.octaveNumber = @([[noteName componentsSeparatedByString:@"-"][1] doubleValue]);
+    note.noteLength = @(noteLength);
+    note.rest = NO;
+    
+    NSInteger index = [[Note noteArray] indexOfObject:note.baseNoteName];
+    index += halfStep;
+    note.noteName = [Note noteArray][index];
+    note.frequency = @([Note frequencyForNote:[Note noteStringFromNote:note.noteName octave:[note.octaveNumber integerValue]]]);
+    note.halfStep = @(halfStep);
+    
+    return note;
+}
+
 +(Note *)noteWithRestForLength:(double)noteLength {
 
     NSManagedObjectContext *managedObjectContext = [(JYJAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
@@ -73,6 +98,10 @@
 
 -(BOOL)hasSameFrequencyAs:(Note *)other {
     return (self.frequency == other.frequency || ([self.noteName isEqualToString:other.noteName] && self.octaveNumber == other.octaveNumber));
+}
+
+-(BOOL)isRest {
+    return [self.rest boolValue];
 }
 
 +(NSInteger)distanceToOriginFromNote:(NSString *)noteName octave:(NSInteger)octave {
