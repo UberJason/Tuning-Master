@@ -115,7 +115,14 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (section == 0 ? self.model.sequenceToPlay.count +1 : 1);
+    if(section == 0) {
+        if(self.pickerCellIndexPath)
+            return self.model.sequenceToPlay.count + 1;
+        else
+            return self.model.sequenceToPlay.count;
+    }
+    else return 1;
+    
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -136,7 +143,7 @@
     
     if(indexPath.section == 0) {
         
-        if(indexPath.row == self.model.sequenceToPlay.count) {
+        if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row) {
             PickerCell *cell = (PickerCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
             cell.pickerView.delegate = self;
             cell.pickerView.dataSource = self;
@@ -147,24 +154,26 @@
             
             return cell;
         }
-        else {
-            JYJNoteCell *cell = (JYJNoteCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-            
-            Note *note = ((Note *)self.model.sequence.notes[indexPath.row]);
-            
-            cell.lengthImage.image = [UIImage imageNamed:[self imageNameForNote:note]];
-            
-            if(note.isRest) {
-                cell.noteDetailsPanel.hidden = YES;
-            }
-            else {
-                cell.noteDetailsPanel.hidden = NO;
-                cell.noteLabel.text = note.baseNoteName;
-                cell.octaveLabel.text = [NSString stringWithFormat:@"%ld", (long)[note.octaveNumber integerValue]];
-                cell.sharpFlatImage.image = [UIImage imageNamed:[self sharpFlatImageForNote:note]];
-            }
-            return cell;
+        
+        NSInteger row = (self.pickerCellIndexPath && self.pickerCellIndexPath.row < indexPath.row) ? indexPath.row-1 : indexPath.row;
+        
+        JYJNoteCell *cell = (JYJNoteCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+        
+        Note *note = ((Note *)self.model.sequence.notes[row]);
+        
+        cell.lengthImage.image = [UIImage imageNamed:[self imageNameForNote:note]];
+        
+        if(note.isRest) {
+            cell.noteDetailsPanel.hidden = YES;
         }
+        else {
+            cell.noteDetailsPanel.hidden = NO;
+            cell.noteLabel.text = note.baseNoteName;
+            cell.octaveLabel.text = [NSString stringWithFormat:@"%ld", (long)[note.octaveNumber integerValue]];
+            cell.sharpFlatImage.image = [UIImage imageNamed:[self sharpFlatImageForNote:note]];
+        }
+        return cell;
+        
     }
     else {
         
@@ -179,13 +188,31 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 1)
         [self.model play];
-    [tableView cellForRowAtIndexPath:indexPath].selected = NO;
+    else {
+        NSLog(@"selected at (section,row)=(%ld,%ld)", indexPath.section, indexPath.row);
+        if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row+1)  {// if the picker cell is showing, hide it
+            self.pickerCellIndexPath = nil;
+            
+            [tableView beginUpdates];
+            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
+        }
+        else {
+            self.pickerCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
+            
+            [tableView beginUpdates];
+            [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
+        }
+        
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(NSString *)identifierForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 0) {
-        if(indexPath.row == self.model.sequenceToPlay.count)
-            return @"pickerCell";
+        if(self.pickerCellIndexPath)
+            return indexPath.row == self.pickerCellIndexPath.row ? @"pickerCell" : @"noteCell";
         else
             return @"noteCell";
     }
@@ -247,7 +274,7 @@
 }
 
 -(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
-    return 41;
+    return 35;
 }
 
 #pragma mark - helpers
@@ -255,23 +282,23 @@
 -(UIImageView *)noteImageForPickerViewForRow:(NSInteger)row {   // sixteenth, eighth, quarter, half, whole, quarter-rest
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.noteImageURLs[row]]];
-    imageView.frame = CGRectMake(0, 0, 30, 41);
+    imageView.frame = CGRectMake(0, 0, 25, 35);
     return imageView;
 }
 
 -(UILabel *)noteLabelForPickerViewForRow:(NSInteger)row {   // A, B, C, D, E, F, G
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, 41)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 25, 35)];
     label.text = self.displayableNoteNames[row];
     label.font = [UIFont systemFontOfSize:25.0];
     return label;
 }
 -(UIImageView *)noteSignImageForPickerViewForRow:(NSInteger)row {   // sharp, flat, natural
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.noteTypeImageURLs[row]]];
-    imageView.frame = CGRectMake(0, 0, 12, 35);
+    imageView.frame = CGRectMake(0, 0, 10, 30);
     return imageView;
 }
 -(UILabel *)octaveLabelForPickerViewForRow:(NSInteger)row {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, 41)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 25, 35)];
     label.text = [NSString stringWithFormat:@"%ld", row+3];
     label.font = [UIFont systemFontOfSize:25.0];
     return label;
