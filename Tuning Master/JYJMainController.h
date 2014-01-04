@@ -17,27 +17,23 @@
 #import "Note+Helpers.h"
 #import "Sequence+Helpers.h"
 #import "JYJNoteCell.h"
+#import "PickerCell.h"
 
-@interface JYJMainController : UIViewController <UITableViewDelegate, UITableViewDataSource>
-
-@property (nonatomic) AudioComponentInstance toneUnit;
-
-@property (nonatomic) double noteFrequency;
-@property (nonatomic) double tempo;     // in beats per minute
-
-@property (nonatomic) double sampleRate;
-@property (nonatomic) double theta;
+@interface JYJMainController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (strong, nonatomic) NSTimer *playlistTimer;
 @property (strong, nonatomic) NSTimer *stopTimer;
 @property (strong, nonatomic) NSTimer *metronomeTimer;
 
-@property (nonatomic) NSInteger indexOfSequence;
-@property (nonatomic) NSInteger ignoreCount;
 @property (strong, nonatomic) NSMutableArray *userList;
-//@property (strong, nonatomic) NSMutableArray *sequenceToPlay;
 
 @property (strong, nonatomic) JYJMusicModel *model;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+@property (strong, nonatomic) NSIndexPath *pickerCellIndexPath;
+
+@property (strong, nonatomic) NSArray *noteImageURLs;
+@property (strong, nonatomic) NSArray *noteTypeImageURLs;
+@property (strong, nonatomic) NSArray *displayableNoteNames;
 
 @end
