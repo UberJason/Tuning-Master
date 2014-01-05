@@ -96,6 +96,22 @@
     return note;
 }
 
++(Note *)noteFromOtherNote:(Note *)otherNote {
+    NSManagedObjectContext *managedObjectContext = [(JYJAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    
+    Note *note = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:managedObjectContext];
+    
+    note.frequency = [otherNote.frequency copy];
+    note.noteLength = [otherNote.noteLength copy];
+    note.noteName = [otherNote.noteName copy];
+    note.octaveNumber = [otherNote.octaveNumber copy];
+    note.rest = otherNote.rest;
+    note.baseNoteName = [otherNote.baseNoteName copy];
+    note.halfStep = [otherNote.halfStep copy];
+    
+    return note;
+}
+
 
 -(void)updateValuesForBaseNote:(NSString *)baseNoteName noteLength:(double)noteLength halfStep:(NSInteger)halfStep octaveNumber:(NSInteger)octaveNumber {
     self.baseNoteName = [baseNoteName componentsSeparatedByString:@"-"][0];

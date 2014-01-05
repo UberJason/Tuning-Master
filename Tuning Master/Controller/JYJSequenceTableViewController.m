@@ -6,10 +6,14 @@
 //  Copyright (c) 2013 Jason Ji. All rights reserved.
 //
 
-#import "JYJMainController.h"
+#import "JYJSequenceTableViewController.h"
+#import "JYJBaseViewController.h"
 
 #define DEFAULT_SAMPLE_RATE 44100.0
 #define DEFAULT_TEMPO 120.0
+
+#define PICKER_CELL_HEIGHT 163
+#define NORMAL_CELL_HEIGHT 44
 
 #define NOTE_IMAGE_HEIGHT 35
 #define NOTE_IMAGE_WIDTH 25
@@ -43,13 +47,11 @@ typedef enum {
     NoteAccentSharp
 } NoteAccent;
 
-@interface JYJMainController ()
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface JYJSequenceTableViewController ()
 
 @end
 
-@implementation JYJMainController
+@implementation JYJSequenceTableViewController
 
 #pragma mark - getters/setters
 
@@ -99,6 +101,8 @@ typedef enum {
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.alwaysBounceVertical = NO;
     
     NSMutableArray *coreDataSequence = [@[
                                           [Note noteWithRestForLength:QUARTER_NOTE],
@@ -122,16 +126,10 @@ typedef enum {
     NSArray *results = [ [(JYJAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext] executeFetchRequest:request error:nil];
     Sequence *sequence = results[0];
     
-    // note this MUST BE the usage, or it breaks for some unfathomable reason! add all objects manually to a new array.
-    NSMutableArray *array = [NSMutableArray new];
-    
-    for(Note *note in sequence.notes)
-        [array addObject:note];
-    
-    //    NSArray *array = [sequence.notes array];
-    
     self.model = [[JYJMusicModel alloc] initWithSampleRate:DEFAULT_SAMPLE_RATE tempo:DEFAULT_TEMPO sequence:sequence];
-    
+    Note *newNote = [Note noteWithBaseNote:[Note noteStringFromNote:C octave:4] halfStep:0 noteLength:QUARTER_NOTE];
+    newNote.sequence = sequence;
+    [self.model updateSequenceToPlay];
 }
 
 #pragma mark - table view delegate/datasource methods
@@ -141,14 +139,13 @@ typedef enum {
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(section == 0) {
-        if(self.pickerCellIndexPath)
-            return self.model.sequenceToPlay.count + 1;
-        else
-            return self.model.sequenceToPlay.count;
-    }
-    else return 1;
+    if(section==1)
+        return 1;
     
+    if(self.pickerCellIndexPath)
+        return self.model.sequenceToPlay.count + 1;
+    else
+        return self.model.sequenceToPlay.count;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -158,37 +155,41 @@ typedef enum {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = [self identifierForRowAtIndexPath:indexPath];
     if([identifier isEqualToString:@"pickerCell"])
-        return 163;
+        return PICKER_CELL_HEIGHT;
     else
-        return 44;
+        return NORMAL_CELL_HEIGHT;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSString *identifier = [self identifierForRowAtIndexPath:indexPath];
     
-    if(indexPath.section == 0) {
+    if([identifier isEqualToString:@"pickerCell"]) {
+        PickerCell *cell = (PickerCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.pickerView.delegate = self;
+        cell.pickerView.dataSource = self;
         
-        if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row) {
-            PickerCell *cell = (PickerCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-            cell.pickerView.delegate = self;
-            cell.pickerView.dataSource = self;
-            
-            Note *note = self.model.sequence.notes[indexPath.row-1];
-            
-            if(note.isRest) {
-                [cell.pickerView selectRow:5 inComponent:0 animated:NO];
-            }
-            else {
-                [cell.pickerView selectRow:[self pickerRowForNoteLength:[note.noteLength doubleValue]] inComponent:0 animated:NO];
-                [cell.pickerView selectRow:[self.displayableNoteNames indexOfObject:note.baseNoteName] inComponent:1 animated:NO];
-                [cell.pickerView selectRow:[self pickerRowForAccent:[note.halfStep integerValue]] inComponent:2 animated:NO];
-                [cell.pickerView selectRow:[note.octaveNumber integerValue]-3 inComponent:3 animated:NO];
-            }
-            
-            return cell;
+        Note *note = self.model.sequence.notes[indexPath.row-1];
+        
+        if(note.isRest) {
+            [cell.pickerView selectRow:5 inComponent:0 animated:NO];
+        }
+        else {
+            [cell.pickerView selectRow:[self pickerRowForNoteLength:[note.noteLength doubleValue]] inComponent:0 animated:NO];
+            [cell.pickerView selectRow:[self.displayableNoteNames indexOfObject:note.baseNoteName] inComponent:1 animated:NO];
+            [cell.pickerView selectRow:[self pickerRowForAccent:[note.halfStep integerValue]] inComponent:2 animated:NO];
+            [cell.pickerView selectRow:[note.octaveNumber integerValue]-3 inComponent:3 animated:NO];
         }
         
+        return cell;
+    }
+    else if([identifier isEqualToString:@"addCell"]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.textLabel.text = @"Add a note...";
+        
+        return cell;
+    }
+    else {
         NSInteger row = (self.pickerCellIndexPath && self.pickerCellIndexPath.row < indexPath.row) ? indexPath.row-1 : indexPath.row;
         
         JYJNoteCell *cell = (JYJNoteCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
@@ -207,68 +208,65 @@ typedef enum {
             cell.sharpFlatImage.image = [UIImage imageNamed:[self sharpFlatImageForNote:note]];
         }
         return cell;
-        
     }
-    else {
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        cell.textLabel.text = @"Play";
-        
-        return cell;
-    }
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.section == 1)
-        [self.model play];
-    else {
-        if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row) {
-            // do nothing, should not select the picker cell.
-        }
-        else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row+1)  {// if the picker cell is showing right below this cell, hide it and we're done.
-            self.pickerCellIndexPath = nil;
-            
-            [tableView beginUpdates];
-            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView endUpdates];
-        }
-        else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row < indexPath.row) { // if the picker cell is showing somewhere above the current cell
-            NSIndexPath *oldPickerIndexPath = self.pickerCellIndexPath;
-            self.pickerCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
-            [tableView beginUpdates];
-            [tableView deleteRowsAtIndexPaths:@[oldPickerIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView endUpdates];
-        }
-        else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row > indexPath.row) { // if the picker cell is showing somewhere below the current cell
-            NSIndexPath *oldPickerIndexPath = self.pickerCellIndexPath;
-            self.pickerCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
-            [tableView beginUpdates];
-            [tableView deleteRowsAtIndexPaths:@[oldPickerIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView endUpdates];
-        }
-        else {  // if there is no picker cell showing
-            self.pickerCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
-
-            [tableView beginUpdates];
-            [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView endUpdates];
-        }
+    if(indexPath.section == 1) {    // add cell was tapped; add a note to the end of the sequence.
+        [self addNewNote];
     }
+    else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row) {
+        // do nothing, should not select the picker cell.
+    }
+    else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row+1)  {// if the picker cell is showing right below this cell, hide it and we're done.
+        self.pickerCellIndexPath = nil;
+        
+        [tableView beginUpdates];
+        [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+        [self.delegate modifyContainerHeight:-1*PICKER_CELL_HEIGHT];
+    }
+    else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row < indexPath.row) { // if the picker cell is showing somewhere above the current cell, hide it and show it here
+        NSIndexPath *oldPickerIndexPath = self.pickerCellIndexPath;
+        self.pickerCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+        [tableView beginUpdates];
+        [tableView deleteRowsAtIndexPaths:@[oldPickerIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+    }
+    else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row > indexPath.row) { // if the picker cell is showing somewhere below the current cell, hide it and show it here
+        NSIndexPath *oldPickerIndexPath = self.pickerCellIndexPath;
+        self.pickerCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
+        [tableView beginUpdates];
+        [tableView deleteRowsAtIndexPaths:@[oldPickerIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+    }
+    else {  // if there is no picker cell showing
+        self.pickerCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
+        
+        [tableView beginUpdates];
+        [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView endUpdates];
+        [self.delegate modifyContainerHeight:PICKER_CELL_HEIGHT];
+    }
+    
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 
 -(NSString *)identifierForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.section == 0) {
-        if(self.pickerCellIndexPath)
-            return indexPath.row == self.pickerCellIndexPath.row ? @"pickerCell" : @"noteCell";
+    if(indexPath.section == 1)
+        return @"addCell";
+    
+    if(self.pickerCellIndexPath) {
+        if(indexPath.row == self.pickerCellIndexPath.row)
+            return @"pickerCell";
         else
             return @"noteCell";
     }
-    else
-        return @"playStopCell";
+    else {
+            return @"noteCell";
+    }
 }
 
 #pragma mark - target/action methods
@@ -324,12 +322,29 @@ typedef enum {
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-
+    
     [self updateNoteAtIndex:self.pickerCellIndexPath.row-1 withValuesFromPicker:pickerView];
     
 }
 
 #pragma mark - helpers
+
+-(void)addNewNote {
+    Note *lastNoteInSequence = self.model.sequenceToPlay[self.model.sequence.notes.count-1];
+    Note *newNote = [Note noteFromOtherNote:lastNoteInSequence];
+    newNote.sequence = self.model.sequence;
+    [self.model updateSequenceToPlay];
+    
+    [self.tableView beginUpdates];
+    if(self.pickerCellIndexPath)
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.model.sequenceToPlay.count inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    else
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.model.sequenceToPlay.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    
+    [self.delegate modifyContainerHeight:NORMAL_CELL_HEIGHT];
+    
+}
 
 -(void)updateNoteAtIndex:(NSInteger)index withValuesFromPicker:(UIPickerView *)pickerView {
     
@@ -344,12 +359,6 @@ typedef enum {
         note.rest = @(YES);
     }
     else {
-//        note.noteLength = @([self noteLengthForNoteLengthEnum:[pickerView selectedRowInComponent:0]]);
-//        note.baseNoteName = self.displayableNoteNames[[pickerView selectedRowInComponent:1]];
-//        note.halfStep = @([self halfStepForNoteAccent:[pickerView selectedRowInComponent:2]]);
-//        note.octaveNumber = @([pickerView selectedRowInComponent:3]+3);
-//        note.frequency = @([Note frequencyForNote:[Note noteStringFromNote:note.noteName octave:[note.octaveNumber integerValue]]]);
-//        note.rest = NO;
         
         double noteLength = [self noteLengthForNoteLengthEnum:(NoteLength)[pickerView selectedRowInComponent:0]];
         NSString *baseNoteLabel = self.displayableNoteNames[[pickerView selectedRowInComponent:1]];
@@ -361,7 +370,7 @@ typedef enum {
     }
     
     [self.tableView reloadData];
-
+    
 }
 
 -(UIImageView *)noteImageForPickerViewForRow:(NSInteger)row {   // sixteenth, eighth, quarter, half, whole, quarter-rest
@@ -406,7 +415,7 @@ typedef enum {
 
 #pragma mark - methods to convert note lengths to picker rows and back
 -(double)noteLengthForNoteLengthEnum:(NoteLength)note {
-
+    
     return [self.possibleNoteLengths[note] doubleValue];
 }
 

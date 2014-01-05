@@ -17,6 +17,7 @@
 +(Note *)noteWithNote:(NSString *)note noteLength:(double)noteLength;
 +(Note *)noteWithBaseNote:(NSString *)note halfStep:(NSInteger)halfStep noteLength:(double)noteLength;
 +(Note *)noteWithRestForLength:(double)noteLength;
++(Note *)noteFromOtherNote:(Note *)otherNote;
 
 -(void)recomputeNoteFrequency;
 -(BOOL)hasSameFrequencyAs:(Note *)other;

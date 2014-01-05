@@ -7,7 +7,7 @@
 //
 
 #import "JYJAppDelegate.h"
-#import "JYJMainController.h"
+#import "JYJSequenceTableViewController.h"
 
 @implementation JYJAppDelegate
 

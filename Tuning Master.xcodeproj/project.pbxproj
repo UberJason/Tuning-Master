@@ -18,6 +18,7 @@
 		9654AB5F186FA35A00CFD756 /* sharp.png in Resources */ = {isa = PBXBuildFile; fileRef = 9654AB56186FA35A00CFD756 /* sharp.png */; };
 		965987E2187769B90017DEDD /* PickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 965987E1187769B90017DEDD /* PickerCell.m */; };
 		96B0EDF1185EA14E0004FE6E /* Sequence+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B0EDF0185EA14E0004FE6E /* Sequence+Helpers.m */; };
+		96D4CA2B187914520050CE1A /* JYJBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4CA2A187914520050CE1A /* JYJBaseViewController.m */; };
 		96DAD51D185C0CC2001AEF91 /* TMDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */; };
 		96DAD52F185C0E54001AEF91 /* Sequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD52E185C0E54001AEF91 /* Sequence.m */; };
 		96DB433F1854233000B7F739 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB433E1854233000B7F739 /* Foundation.framework */; };
@@ -27,7 +28,7 @@
 		96DB434B1854233000B7F739 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB434A1854233000B7F739 /* main.m */; };
 		96DB434F1854233000B7F739 /* JYJAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB434E1854233000B7F739 /* JYJAppDelegate.m */; };
 		96DB43521854233000B7F739 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96DB43501854233000B7F739 /* Main.storyboard */; };
-		96DB43551854233000B7F739 /* JYJMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB43541854233000B7F739 /* JYJMainController.m */; };
+		96DB43551854233000B7F739 /* JYJSequenceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DB43541854233000B7F739 /* JYJSequenceTableViewController.m */; };
 		96DB43571854233000B7F739 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96DB43561854233000B7F739 /* Images.xcassets */; };
 		96DB435E1854233000B7F739 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB435D1854233000B7F739 /* XCTest.framework */; };
 		96DB435F1854233000B7F739 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB433E1854233000B7F739 /* Foundation.framework */; };
@@ -65,8 +66,8 @@
 		9636E969185C0120003EFCE5 /* JYJNoteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYJNoteHelper.h; path = Model/JYJNoteHelper.h; sourceTree = "<group>"; };
 		9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJNoteHelper.m; path = Model/JYJNoteHelper.m; sourceTree = "<group>"; };
 		9636E9B6185C0B8E003EFCE5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		9654AB4A186F91A200CFD756 /* JYJNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYJNoteCell.h; sourceTree = "<group>"; };
-		9654AB4B186F91A200CFD756 /* JYJNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYJNoteCell.m; sourceTree = "<group>"; };
+		9654AB4A186F91A200CFD756 /* JYJNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYJNoteCell.h; path = "UI Subclasses/JYJNoteCell.h"; sourceTree = "<group>"; };
+		9654AB4B186F91A200CFD756 /* JYJNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJNoteCell.m; path = "UI Subclasses/JYJNoteCell.m"; sourceTree = "<group>"; };
 		9654AB4E186FA35A00CFD756 /* flat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flat.png; path = images/flat.png; sourceTree = "<group>"; };
 		9654AB55186FA35A00CFD756 /* natural.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = natural.png; path = images/natural.png; sourceTree = "<group>"; };
 		9654AB56186FA35A00CFD756 /* sharp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sharp.png; path = images/sharp.png; sourceTree = "<group>"; };
@@ -74,6 +75,8 @@
 		965987E1187769B90017DEDD /* PickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PickerCell.m; path = "UI Subclasses/PickerCell.m"; sourceTree = "<group>"; };
 		96B0EDEF185EA14E0004FE6E /* Sequence+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Sequence+Helpers.h"; path = "Core Data/Sequence+Helpers.h"; sourceTree = "<group>"; };
 		96B0EDF0185EA14E0004FE6E /* Sequence+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Sequence+Helpers.m"; path = "Core Data/Sequence+Helpers.m"; sourceTree = "<group>"; };
+		96D4CA2A187914520050CE1A /* JYJBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJBaseViewController.m; path = Controller/JYJBaseViewController.m; sourceTree = "<group>"; };
+		96D4CA2C187914AE0050CE1A /* JYJBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JYJBaseViewController.h; path = Controller/JYJBaseViewController.h; sourceTree = "<group>"; };
 		96DAD51C185C0CC2001AEF91 /* TMDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMDataModel.xcdatamodel; sourceTree = "<group>"; };
 		96DAD52D185C0E54001AEF91 /* Sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sequence.h; path = "Core Data/Sequence.h"; sourceTree = "<group>"; };
 		96DAD52E185C0E54001AEF91 /* Sequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sequence.m; path = "Core Data/Sequence.m"; sourceTree = "<group>"; };
@@ -89,8 +92,8 @@
 		96DB434D1854233000B7F739 /* JYJAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JYJAppDelegate.h; sourceTree = "<group>"; };
 		96DB434E1854233000B7F739 /* JYJAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JYJAppDelegate.m; sourceTree = "<group>"; };
 		96DB43511854233000B7F739 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		96DB43531854233000B7F739 /* JYJMainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JYJMainController.h; sourceTree = "<group>"; };
-		96DB43541854233000B7F739 /* JYJMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JYJMainController.m; sourceTree = "<group>"; };
+		96DB43531854233000B7F739 /* JYJSequenceTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JYJSequenceTableViewController.h; path = Controller/JYJSequenceTableViewController.h; sourceTree = "<group>"; };
+		96DB43541854233000B7F739 /* JYJSequenceTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JYJSequenceTableViewController.m; path = Controller/JYJSequenceTableViewController.m; sourceTree = "<group>"; };
 		96DB43561854233000B7F739 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		96DB435C1854233000B7F739 /* Tuning MasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tuning MasterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DB435D1854233000B7F739 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -188,8 +191,10 @@
 		96D4CA281878863C0050CE1A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				96DB43531854233000B7F739 /* JYJMainController.h */,
-				96DB43541854233000B7F739 /* JYJMainController.m */,
+				96D4CA2C187914AE0050CE1A /* JYJBaseViewController.h */,
+				96D4CA2A187914520050CE1A /* JYJBaseViewController.m */,
+				96DB43531854233000B7F739 /* JYJSequenceTableViewController.h */,
+				96DB43541854233000B7F739 /* JYJSequenceTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -425,9 +430,10 @@
 				9654AB4C186F91A200CFD756 /* JYJNoteCell.m in Sources */,
 				96F56474186FBEA70062592A /* Note.m in Sources */,
 				962770891855492C00E0B1FD /* JYJMusicModel.m in Sources */,
+				96D4CA2B187914520050CE1A /* JYJBaseViewController.m in Sources */,
 				965987E2187769B90017DEDD /* PickerCell.m in Sources */,
 				96DB434B1854233000B7F739 /* main.m in Sources */,
-				96DB43551854233000B7F739 /* JYJMainController.m in Sources */,
+				96DB43551854233000B7F739 /* JYJSequenceTableViewController.m in Sources */,
 				96FF5586185E3B1A005CC503 /* Note+Helpers.m in Sources */,
 				96DAD52F185C0E54001AEF91 /* Sequence.m in Sources */,
 				9627708618543A6D00E0B1FD /* JYJNote.m in Sources */,
