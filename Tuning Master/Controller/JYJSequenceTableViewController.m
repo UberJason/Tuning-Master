@@ -254,6 +254,42 @@ typedef enum {
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *identifier = [self identifierForRowAtIndexPath:indexPath];
+    if([identifier isEqualToString:@"pickerCell"] || [identifier isEqualToString:@"addCell"])
+        return NO;
+    else
+        return YES;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(editingStyle == UITableViewCellEditingStyleDelete) {
+        if(self.pickerCellIndexPath) {  // if the picker cell is showing, we will delete it as well
+            Note *noteToDelete = (self.pickerCellIndexPath.row < indexPath.row ? self.model.sequenceToPlay[indexPath.row-1] : self.model.sequenceToPlay[indexPath.row]);
+            noteToDelete.sequence = nil;
+            [self.model updateSequenceToPlay];
+            NSIndexPath *formerPickerCellIndexPath = self.pickerCellIndexPath;
+            self.pickerCellIndexPath = nil;
+            
+            [tableView beginUpdates];
+            [tableView deleteRowsAtIndexPaths:@[formerPickerCellIndexPath, indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
+            [self.delegate modifyContainerHeight:-1*(NORMAL_CELL_HEIGHT+PICKER_CELL_HEIGHT)];
+        }
+
+        else {  // if there is no picker cell showing
+            Note *noteToDelete = self.model.sequenceToPlay[indexPath.row];
+            noteToDelete.sequence = nil;
+            [self.model updateSequenceToPlay];
+            
+            [tableView beginUpdates];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
+            [self.delegate modifyContainerHeight:-1*NORMAL_CELL_HEIGHT];
+        }
+    }
+}
+
 -(NSString *)identifierForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 1)
         return @"addCell";
