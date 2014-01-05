@@ -71,6 +71,7 @@
     note.noteName = [Note noteArray][index];
     note.frequency = @([Note frequencyForNote:[Note noteStringFromNote:note.noteName octave:[note.octaveNumber integerValue]]]);
     note.halfStep = @(halfStep);
+
     
     return note;
 }
@@ -89,6 +90,20 @@
         
 
     return note;
+}
+
+
+-(void)updateValuesForBaseNote:(NSString *)baseNoteName noteLength:(double)noteLength halfStep:(NSInteger)halfStep octaveNumber:(NSInteger)octaveNumber {
+    self.baseNoteName = [baseNoteName componentsSeparatedByString:@"-"][0];
+    self.octaveNumber = @([[baseNoteName componentsSeparatedByString:@"-"][1] doubleValue]);
+    self.noteLength = @(noteLength);
+    self.rest = NO;
+    
+    NSInteger index = [[Note noteArray] indexOfObject:self.baseNoteName];
+    index += halfStep;
+    self.noteName = [Note noteArray][index];
+    self.frequency = @([Note frequencyForNote:[Note noteStringFromNote:self.noteName octave:[self.octaveNumber integerValue]]]);
+    self.halfStep = @(halfStep);
 }
 
 -(void)recomputeNoteFrequency {

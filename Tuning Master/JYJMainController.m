@@ -10,8 +10,40 @@
 
 #define DEFAULT_SAMPLE_RATE 44100.0
 #define DEFAULT_TEMPO 120.0
+#define NOTE_IMAGE_HEIGHT 35
+#define NOTE_IMAGE_WIDTH 25
+#define NOTE_TYPE_IMAGE_HEIGHT 30
+#define NOTE_TYPE_IMAGE_WIDTH 10
+#define NOTE_TEXT_FONT_SIZE 25
+
+#define SIXTEENTH_URL @"sixteenth_note.png"
+#define EIGHTH_URL @"eighth_note.png"
+#define QUARTER_URL @"quarter_note.png"
+#define HALF_URL @"half_note.png"
+#define WHOLE_URL @"whole_note.png"
+#define QUARTER_REST_URL @"quarter_rest.png"
+
+#define FLAT_URL @"flat.png"
+#define NATURAL_URL @"natural.png"
+#define SHARP_URL @"sharp.png"
+
+typedef enum {
+    NoteLengthSixteenthNote,
+    NoteLengthEighthNote,
+    NoteLengthQuarterNote,
+    NoteLengthHalfNote,
+    NoteLengthWholeNote,
+    NoteLengthQuarterRest
+} NoteLength;
+
+typedef enum {
+    NoteAccentFlat,
+    NoteAccentNatural,
+    NoteAccentSharp
+} NoteAccent;
 
 @interface JYJMainController ()
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -34,13 +66,20 @@
 }
 
 -(NSArray *)noteImageURLs {
-    return @[@"sixteenth_note.png", @"eighth_note.png", @"quarter_note.png", @"half_note.png", @"whole_note.png", @"quarter_rest.png"];
+    return @[SIXTEENTH_URL, EIGHTH_URL, QUARTER_URL, HALF_URL, WHOLE_URL, QUARTER_REST_URL];
 }
--(NSArray *)noteTypeImageURLs {
-    return @[@"flat.png", @"natural.png", @"sharp.png"];
+-(NSArray *)noteAccentImageURLs {
+    return @[FLAT_URL, NATURAL_URL, SHARP_URL];
 }
 -(NSArray *)displayableNoteNames {
     return @[@"A", @"B", @"C", @"D", @"E", @"F", @"G"];
+}
+-(NSArray *)possibleNoteLengths {
+    return @[@(SIXTEENTH_NOTE), @(EIGHTH_NOTE), @(QUARTER_NOTE), @(HALF_NOTE), @(WHOLE_NOTE), @(QUARTER_NOTE)];
+}
+
+-(NSArray *)possibleAccents {
+    return @[@(FLAT), @(NATURAL), @(SHARP)];
 }
 
 #pragma mark - view controller lifecycle
@@ -59,20 +98,6 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    //    double sampleRate = 44100.0;
-    //    double tempo = 120.0;
-    //    NSMutableArray *birthdaySequence = [@[
-    //                                [[JYJNote alloc] initWithRestForLength:QUARTER_NOTE],
-    //                                [[JYJNote alloc] initWithRestForLength:QUARTER_NOTE],
-    //                                [[JYJNote alloc] initWithRestForLength:QUARTER_NOTE],
-    //                                [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:.75],
-    //                                [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:SIXTEENTH_NOTE],
-    //                                [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:D octave:4] noteLength:QUARTER_NOTE],
-    //                                [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:C octave:4] noteLength:QUARTER_NOTE],
-    //                                [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:F octave:4] noteLength:QUARTER_NOTE],
-    //                                [[JYJNote alloc] initWithNote:[JYJNote noteStringFromNote:E octave:4] noteLength:QUARTER_NOTE]
-    //                            ] mutableCopy];
     
     NSMutableArray *coreDataSequence = [@[
                                           [Note noteWithRestForLength:QUARTER_NOTE],
@@ -147,10 +172,13 @@
             PickerCell *cell = (PickerCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
             cell.pickerView.delegate = self;
             cell.pickerView.dataSource = self;
-            [cell.pickerView selectRow:2 inComponent:0 animated:NO];
-            [cell.pickerView selectRow:2 inComponent:1 animated:NO];
-            [cell.pickerView selectRow:1 inComponent:2 animated:NO];
-            [cell.pickerView selectRow:1 inComponent:3 animated:NO];
+            
+            Note *note = self.model.sequence.notes[indexPath.row-1];
+            
+            [cell.pickerView selectRow:[self pickerRowForNoteLength:[note.noteLength doubleValue]] inComponent:0 animated:NO];
+            [cell.pickerView selectRow:[self.displayableNoteNames indexOfObject:note.baseNoteName] inComponent:1 animated:NO];
+            [cell.pickerView selectRow:[self pickerRowForAccent:[note.halfStep integerValue]] inComponent:2 animated:NO];
+            [cell.pickerView selectRow:[note.octaveNumber integerValue]-3 inComponent:3 animated:NO];
             
             return cell;
         }
@@ -189,24 +217,41 @@
     if(indexPath.section == 1)
         [self.model play];
     else {
-        NSLog(@"selected at (section,row)=(%ld,%ld)", indexPath.section, indexPath.row);
-        if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row+1)  {// if the picker cell is showing, hide it
+        if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row) {
+            // do nothing, should not select the picker cell.
+        }
+        else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row+1)  {// if the picker cell is showing right below this cell, hide it and we're done.
             self.pickerCellIndexPath = nil;
             
             [tableView beginUpdates];
             [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
         }
-        else {
+        else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row < indexPath.row) { // if the picker cell is showing somewhere above the current cell
+            NSIndexPath *oldPickerIndexPath = self.pickerCellIndexPath;
+            self.pickerCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+            [tableView beginUpdates];
+            [tableView deleteRowsAtIndexPaths:@[oldPickerIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
+        }
+        else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row > indexPath.row) { // if the picker cell is showing somewhere below the current cell
+            NSIndexPath *oldPickerIndexPath = self.pickerCellIndexPath;
             self.pickerCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
-            
+            [tableView beginUpdates];
+            [tableView deleteRowsAtIndexPaths:@[oldPickerIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView endUpdates];
+        }
+        else {  // if there is no picker cell showing
+            self.pickerCellIndexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section];
+
             [tableView beginUpdates];
             [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
         }
-        
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 
 -(NSString *)identifierForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -227,11 +272,6 @@
 }
 - (IBAction)stop {
     [self.model goodNote_EverybodyBackToOne];
-}
-- (IBAction)changeFrequency {
-    [JYJNoteHelper setOriginFrequency:550];
-    for(JYJNote *note in self.model.sequenceToPlay)
-        [note recomputeNoteFrequency];
 }
 
 #pragma mark - UIPickerView delegate/data source methods
@@ -274,33 +314,72 @@
 }
 
 -(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
-    return 35;
+    return NOTE_IMAGE_HEIGHT;
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+
+    [self updateNoteAtIndex:self.pickerCellIndexPath.row-1 withValuesFromPicker:pickerView];
+    
 }
 
 #pragma mark - helpers
 
+-(void)updateNoteAtIndex:(NSInteger)index withValuesFromPicker:(UIPickerView *)pickerView {
+    
+    Note *note = self.model.sequence.notes[index];
+    NSLog(@"Note: %@", [note description]);
+    if([pickerView selectedRowInComponent:0] == [self.noteImageURLs indexOfObject:QUARTER_REST_URL]) {  // handle special case of quarter rest
+        NSLog(@"quarter rest selected");
+        note.noteName = REST;
+        note.octaveNumber = @(-1);
+        note.noteLength = @(QUARTER_NOTE);
+        note.frequency = @(-1);
+        note.rest = @(YES);
+    }
+    else {
+//        note.noteLength = @([self noteLengthForNoteLengthEnum:[pickerView selectedRowInComponent:0]]);
+//        note.baseNoteName = self.displayableNoteNames[[pickerView selectedRowInComponent:1]];
+//        note.halfStep = @([self halfStepForNoteAccent:[pickerView selectedRowInComponent:2]]);
+//        note.octaveNumber = @([pickerView selectedRowInComponent:3]+3);
+//        note.frequency = @([Note frequencyForNote:[Note noteStringFromNote:note.noteName octave:[note.octaveNumber integerValue]]]);
+//        note.rest = NO;
+        
+        double noteLength = [self noteLengthForNoteLengthEnum:(NoteLength)[pickerView selectedRowInComponent:0]];
+        NSString *baseNoteLabel = self.displayableNoteNames[[pickerView selectedRowInComponent:1]];
+        NSInteger halfStep = [self halfStepForNoteAccent:(NoteAccent)[pickerView selectedRowInComponent:2]];
+        NSInteger octaveNumber = [pickerView selectedRowInComponent:3]+3;
+        
+        [note updateValuesForBaseNote:[Note noteStringFromNote:baseNoteLabel octave:octaveNumber] noteLength:noteLength halfStep:halfStep octaveNumber:octaveNumber];
+        
+    }
+    
+    [self.tableView reloadData];
+
+}
+
 -(UIImageView *)noteImageForPickerViewForRow:(NSInteger)row {   // sixteenth, eighth, quarter, half, whole, quarter-rest
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.noteImageURLs[row]]];
-    imageView.frame = CGRectMake(0, 0, 25, 35);
+    imageView.frame = CGRectMake(0, 0, NOTE_IMAGE_WIDTH, NOTE_IMAGE_HEIGHT);
     return imageView;
 }
 
 -(UILabel *)noteLabelForPickerViewForRow:(NSInteger)row {   // A, B, C, D, E, F, G
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 25, 35)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, NOTE_IMAGE_WIDTH, NOTE_IMAGE_HEIGHT)];
     label.text = self.displayableNoteNames[row];
-    label.font = [UIFont systemFontOfSize:25.0];
+    label.font = [UIFont systemFontOfSize:NOTE_TEXT_FONT_SIZE];
     return label;
 }
 -(UIImageView *)noteSignImageForPickerViewForRow:(NSInteger)row {   // sharp, flat, natural
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.noteTypeImageURLs[row]]];
-    imageView.frame = CGRectMake(0, 0, 10, 30);
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.noteAccentImageURLs[row]]];
+    imageView.frame = CGRectMake(0, 0, NOTE_TYPE_IMAGE_WIDTH, NOTE_TYPE_IMAGE_HEIGHT);
     return imageView;
 }
 -(UILabel *)octaveLabelForPickerViewForRow:(NSInteger)row {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 25, 35)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, NOTE_IMAGE_WIDTH, NOTE_IMAGE_HEIGHT)];
     label.text = [NSString stringWithFormat:@"%ld", row+3];
-    label.font = [UIFont systemFontOfSize:25.0];
+    label.font = [UIFont systemFontOfSize:NOTE_TEXT_FONT_SIZE];
     return label;
 }
 
@@ -319,34 +398,60 @@
     NSLog(@"deleted %d Sequences", count);
 }
 
+#pragma mark - methods to convert note lengths to picker rows and back
+-(double)noteLengthForNoteLengthEnum:(NoteLength)note {
+
+    return [self.possibleNoteLengths[note] doubleValue];
+}
+
+-(NSInteger)pickerRowForNoteLength:(double)noteLength {
+    return [self.possibleNoteLengths indexOfObject:@(noteLength)];
+}
+
+#pragma mark - methods to convert accents to picker rows and back
+
+-(NSInteger)halfStepForNoteAccent:(NoteAccent)note {
+    switch(note) {
+        case NoteAccentFlat: return -1;
+        case NoteAccentNatural: return 0;
+        case NoteAccentSharp: return 1;
+    }
+}
+
+-(NSInteger)pickerRowForAccent:(NSInteger)accent {
+    return [self.possibleAccents indexOfObject:@(accent)];
+}
+
+#pragma mark - methods to retrieve images
+
 -(NSString *)imageNameForNote:(Note *)note {
     
     double length = [note.noteLength doubleValue];
     
     if(note.isRest)
-        return @"quarter_rest.png";
+        return QUARTER_REST_URL;
     
     if(length == SIXTEENTH_NOTE)
-        return @"sixteenth_note.png";
+        return SIXTEENTH_URL;
     else if(length == EIGHTH_NOTE)
-        return @"eighth_note.png";
+        return EIGHTH_URL;
     else if(length == QUARTER_NOTE)
-        return @"quarter_note.png";
+        return QUARTER_URL;
     else if(length == HALF_NOTE)
-        return @"half_note.png";
+        return HALF_URL;
     else if(length == WHOLE_NOTE)
-        return @"whole_note.png";
+        return WHOLE_URL;
     
     return @"ERROR";
 }
 
 -(NSString *)sharpFlatImageForNote:(Note *)note {
     if([note.halfStep integerValue] == -1)
-        return @"flat.png";
+        return FLAT_URL;
     else if([note.halfStep integerValue] == 0)
-        return @"";
+        return nil;
     else
-        return @"sharp.png";
+        return SHARP_URL;
 }
 
 @end

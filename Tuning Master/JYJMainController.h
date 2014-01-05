@@ -11,7 +11,6 @@
 @import AVFoundation;
 @import AudioUnit;
 #import "JYJConstants.h"
-#import "JYJNote.h"
 #import "JYJMusicModel.h"
 #import "JYJAppDelegate.h"
 #import "Note+Helpers.h"
@@ -35,5 +34,6 @@
 @property (strong, nonatomic) NSArray *noteImageURLs;
 @property (strong, nonatomic) NSArray *noteTypeImageURLs;
 @property (strong, nonatomic) NSArray *displayableNoteNames;
-
+@property (strong, nonatomic) NSArray *possibleNoteLengths;
+@property (strong, nonatomic) NSArray *possibleAccents;
 @end

@@ -21,6 +21,7 @@
 -(void)recomputeNoteFrequency;
 -(BOOL)hasSameFrequencyAs:(Note *)other;
 -(BOOL)isRest;
+-(void)updateValuesForBaseNote:(NSString *)baseNoteName noteLength:(double)noteLength halfStep:(NSInteger)halfStep octaveNumber:(NSInteger)octaveNumber;
 
 +(NSInteger)distanceToOriginFromNote:(NSString *)noteName octave:(NSInteger)octave;
 +(double)frequencyForNote:(NSString *)note;

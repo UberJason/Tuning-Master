@@ -166,10 +166,32 @@
 		965987E3187769C20017DEDD /* UI Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				9654AB4A186F91A200CFD756 /* JYJNoteCell.h */,
+				9654AB4B186F91A200CFD756 /* JYJNoteCell.m */,
 				965987E0187769B90017DEDD /* PickerCell.h */,
 				965987E1187769B90017DEDD /* PickerCell.m */,
 			);
 			name = "UI Subclasses";
+			sourceTree = "<group>";
+		};
+		96D4CA271878860C0050CE1A /* Obsolete */ = {
+			isa = PBXGroup;
+			children = (
+				9636E969185C0120003EFCE5 /* JYJNoteHelper.h */,
+				9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */,
+				9627708418543A6D00E0B1FD /* JYJNote.h */,
+				9627708518543A6D00E0B1FD /* JYJNote.m */,
+			);
+			name = Obsolete;
+			sourceTree = "<group>";
+		};
+		96D4CA281878863C0050CE1A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				96DB43531854233000B7F739 /* JYJMainController.h */,
+				96DB43541854233000B7F739 /* JYJMainController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		96DAD530185C0E77001AEF91 /* Core Data Entities */ = {
@@ -188,10 +210,6 @@
 			children = (
 				962770871855492C00E0B1FD /* JYJMusicModel.h */,
 				962770881855492C00E0B1FD /* JYJMusicModel.m */,
-				9636E969185C0120003EFCE5 /* JYJNoteHelper.h */,
-				9636E96A185C0120003EFCE5 /* JYJNoteHelper.m */,
-				9627708418543A6D00E0B1FD /* JYJNote.h */,
-				9627708518543A6D00E0B1FD /* JYJNote.m */,
 				96DAD532185C0F19001AEF91 /* JYJConstants.h */,
 			);
 			name = Model;
@@ -234,19 +252,14 @@
 		96DB43441854233000B7F739 /* Tuning Master */ = {
 			isa = PBXGroup;
 			children = (
-				9654AB4D186FA35000CFD756 /* images */,
+				96DB43501854233000B7F739 /* Main.storyboard */,
 				96DAD531185C0E90001AEF91 /* Model */,
+				96D4CA281878863C0050CE1A /* Controller */,
 				965987E3187769C20017DEDD /* UI Subclasses */,
 				96FF5583185E3B03005CC503 /* Core Data Categories */,
 				96DAD530185C0E77001AEF91 /* Core Data Entities */,
-				96DB43501854233000B7F739 /* Main.storyboard */,
-				96DB43531854233000B7F739 /* JYJMainController.h */,
-				96DB43541854233000B7F739 /* JYJMainController.m */,
-				9654AB4A186F91A200CFD756 /* JYJNoteCell.h */,
-				9654AB4B186F91A200CFD756 /* JYJNoteCell.m */,
-				96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */,
-				96DB43561854233000B7F739 /* Images.xcassets */,
 				96DB43451854233000B7F739 /* Supporting Files */,
+				96D4CA271878860C0050CE1A /* Obsolete */,
 			);
 			path = "Tuning Master";
 			sourceTree = "<group>";
@@ -254,6 +267,9 @@
 		96DB43451854233000B7F739 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9654AB4D186FA35000CFD756 /* images */,
+				96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */,
+				96DB43561854233000B7F739 /* Images.xcassets */,
 				96DB434D1854233000B7F739 /* JYJAppDelegate.h */,
 				96DB434E1854233000B7F739 /* JYJAppDelegate.m */,
 				96DB43461854233000B7F739 /* Tuning Master-Info.plist */,

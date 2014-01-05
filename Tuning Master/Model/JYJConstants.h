@@ -14,6 +14,10 @@
 #define HALF_NOTE 2
 #define WHOLE_NOTE 4
 
+#define FLAT -1
+#define NATURAL 0
+#define SHARP 1
+
 #define REST @"Rest"
 
 #define A @"A"

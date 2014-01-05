@@ -34,6 +34,7 @@
 @property (strong, nonatomic) NSArray *sequenceToPlay;
 
 -(JYJMusicModel *)initWithSampleRate:(double)sampleRate tempo:(double)tempo sequence:(Sequence *)sequence;
+-(void)updateSequenceToPlay;
 -(void)play;
 -(void)goodNote_EverybodyBackToOne;
 

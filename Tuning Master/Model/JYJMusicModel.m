@@ -163,6 +163,14 @@ OSStatus RenderTone(
     return [self timeIntervalForTempo:self.tempo]*noteLength;
 }
 
+-(void)updateSequenceToPlay {
+    NSMutableArray *tempSequence = [NSMutableArray new];
+    for(Note *note in self.sequence.notes)
+        [tempSequence addObject: note];
+    
+    self.sequenceToPlay = [NSArray arrayWithArray:tempSequence];
+}
+
 #pragma mark - play/stop control methods
 
 - (void)play {
