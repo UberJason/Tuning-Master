@@ -10,6 +10,7 @@
 
 #define DEFAULT_SAMPLE_RATE 44100.0
 #define DEFAULT_TEMPO 120.0
+
 #define NOTE_IMAGE_HEIGHT 35
 #define NOTE_IMAGE_WIDTH 25
 #define NOTE_TYPE_IMAGE_HEIGHT 30
@@ -175,10 +176,15 @@ typedef enum {
             
             Note *note = self.model.sequence.notes[indexPath.row-1];
             
-            [cell.pickerView selectRow:[self pickerRowForNoteLength:[note.noteLength doubleValue]] inComponent:0 animated:NO];
-            [cell.pickerView selectRow:[self.displayableNoteNames indexOfObject:note.baseNoteName] inComponent:1 animated:NO];
-            [cell.pickerView selectRow:[self pickerRowForAccent:[note.halfStep integerValue]] inComponent:2 animated:NO];
-            [cell.pickerView selectRow:[note.octaveNumber integerValue]-3 inComponent:3 animated:NO];
+            if(note.isRest) {
+                [cell.pickerView selectRow:5 inComponent:0 animated:NO];
+            }
+            else {
+                [cell.pickerView selectRow:[self pickerRowForNoteLength:[note.noteLength doubleValue]] inComponent:0 animated:NO];
+                [cell.pickerView selectRow:[self.displayableNoteNames indexOfObject:note.baseNoteName] inComponent:1 animated:NO];
+                [cell.pickerView selectRow:[self pickerRowForAccent:[note.halfStep integerValue]] inComponent:2 animated:NO];
+                [cell.pickerView selectRow:[note.octaveNumber integerValue]-3 inComponent:3 animated:NO];
+            }
             
             return cell;
         }
@@ -304,7 +310,7 @@ typedef enum {
             break;
         case 1: return [self noteLabelForPickerViewForRow:row];
             break;
-        case 2: return [self noteSignImageForPickerViewForRow:row];
+        case 2: return [self noteAccentImageForPickerViewForRow:row];
             break;
         case 3: return [self octaveLabelForPickerViewForRow:row];
             break;
@@ -371,12 +377,12 @@ typedef enum {
     label.font = [UIFont systemFontOfSize:NOTE_TEXT_FONT_SIZE];
     return label;
 }
--(UIImageView *)noteSignImageForPickerViewForRow:(NSInteger)row {   // sharp, flat, natural
+-(UIImageView *)noteAccentImageForPickerViewForRow:(NSInteger)row {   // sharp, flat, natural
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.noteAccentImageURLs[row]]];
     imageView.frame = CGRectMake(0, 0, NOTE_TYPE_IMAGE_WIDTH, NOTE_TYPE_IMAGE_HEIGHT);
     return imageView;
 }
--(UILabel *)octaveLabelForPickerViewForRow:(NSInteger)row {
+-(UILabel *)octaveLabelForPickerViewForRow:(NSInteger)row { // 3, 4, 5, 6, 7, 8
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, NOTE_IMAGE_WIDTH, NOTE_IMAGE_HEIGHT)];
     label.text = [NSString stringWithFormat:@"%ld", row+3];
     label.font = [UIFont systemFontOfSize:NOTE_TEXT_FONT_SIZE];

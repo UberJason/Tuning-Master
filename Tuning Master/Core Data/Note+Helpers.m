@@ -68,6 +68,10 @@
     
     NSInteger index = [[Note noteArray] indexOfObject:note.baseNoteName];
     index += halfStep;
+    if(index == -1)
+        index = [Note noteArray].count-1;
+    if(index == [Note noteArray].count)
+        index = 0;
     note.noteName = [Note noteArray][index];
     note.frequency = @([Note frequencyForNote:[Note noteStringFromNote:note.noteName octave:[note.octaveNumber integerValue]]]);
     note.halfStep = @(halfStep);
@@ -95,12 +99,16 @@
 
 -(void)updateValuesForBaseNote:(NSString *)baseNoteName noteLength:(double)noteLength halfStep:(NSInteger)halfStep octaveNumber:(NSInteger)octaveNumber {
     self.baseNoteName = [baseNoteName componentsSeparatedByString:@"-"][0];
-    self.octaveNumber = @([[baseNoteName componentsSeparatedByString:@"-"][1] doubleValue]);
+    self.octaveNumber = @(octaveNumber);
     self.noteLength = @(noteLength);
     self.rest = NO;
     
     NSInteger index = [[Note noteArray] indexOfObject:self.baseNoteName];
     index += halfStep;
+    if(index == -1)
+        index = [Note noteArray].count-1;
+    if(index == [Note noteArray].count)
+        index = 0;
     self.noteName = [Note noteArray][index];
     self.frequency = @([Note frequencyForNote:[Note noteStringFromNote:self.noteName octave:[self.octaveNumber integerValue]]]);
     self.halfStep = @(halfStep);
