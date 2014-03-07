@@ -19,6 +19,11 @@
 		965987E2187769B90017DEDD /* PickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 965987E1187769B90017DEDD /* PickerCell.m */; };
 		96B0EDF1185EA14E0004FE6E /* Sequence+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B0EDF0185EA14E0004FE6E /* Sequence+Helpers.m */; };
 		96D4CA2B187914520050CE1A /* JYJBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D4CA2A187914520050CE1A /* JYJBaseViewController.m */; };
+		96D585D718CA8B3B00D61777 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 96D585D118CA8B3B00D61777 /* .gitignore */; };
+		96D585D818CA8B3B00D61777 /* FlatUIColor.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 96D585D218CA8B3B00D61777 /* FlatUIColor.podspec */; };
+		96D585D918CA8B3B00D61777 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 96D585D318CA8B3B00D61777 /* LICENSE */; };
+		96D585DA18CA8B3B00D61777 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 96D585D418CA8B3B00D61777 /* README.md */; };
+		96D585DB18CA8B3B00D61777 /* UIColor+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D585D618CA8B3B00D61777 /* UIColor+FlatUI.m */; };
 		96DAD51D185C0CC2001AEF91 /* TMDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */; };
 		96DAD52F185C0E54001AEF91 /* Sequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD52E185C0E54001AEF91 /* Sequence.m */; };
 		96DB433F1854233000B7F739 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB433E1854233000B7F739 /* Foundation.framework */; };
@@ -77,6 +82,12 @@
 		96B0EDF0185EA14E0004FE6E /* Sequence+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Sequence+Helpers.m"; path = "Core Data/Sequence+Helpers.m"; sourceTree = "<group>"; };
 		96D4CA2A187914520050CE1A /* JYJBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJBaseViewController.m; path = Controller/JYJBaseViewController.m; sourceTree = "<group>"; };
 		96D4CA2C187914AE0050CE1A /* JYJBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JYJBaseViewController.h; path = Controller/JYJBaseViewController.h; sourceTree = "<group>"; };
+		96D585D118CA8B3B00D61777 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		96D585D218CA8B3B00D61777 /* FlatUIColor.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FlatUIColor.podspec; sourceTree = "<group>"; };
+		96D585D318CA8B3B00D61777 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		96D585D418CA8B3B00D61777 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		96D585D518CA8B3B00D61777 /* UIColor+FlatUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+FlatUI.h"; sourceTree = "<group>"; };
+		96D585D618CA8B3B00D61777 /* UIColor+FlatUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+FlatUI.m"; sourceTree = "<group>"; };
 		96DAD51C185C0CC2001AEF91 /* TMDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMDataModel.xcdatamodel; sourceTree = "<group>"; };
 		96DAD52D185C0E54001AEF91 /* Sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sequence.h; path = "Core Data/Sequence.h"; sourceTree = "<group>"; };
 		96DAD52E185C0E54001AEF91 /* Sequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sequence.m; path = "Core Data/Sequence.m"; sourceTree = "<group>"; };
@@ -199,6 +210,19 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		96D585D018CA8B3B00D61777 /* CocoaFlatUIColor */ = {
+			isa = PBXGroup;
+			children = (
+				96D585D118CA8B3B00D61777 /* .gitignore */,
+				96D585D218CA8B3B00D61777 /* FlatUIColor.podspec */,
+				96D585D318CA8B3B00D61777 /* LICENSE */,
+				96D585D418CA8B3B00D61777 /* README.md */,
+				96D585D518CA8B3B00D61777 /* UIColor+FlatUI.h */,
+				96D585D618CA8B3B00D61777 /* UIColor+FlatUI.m */,
+			);
+			path = CocoaFlatUIColor;
+			sourceTree = "<group>";
+		};
 		96DAD530185C0E77001AEF91 /* Core Data Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +247,7 @@
 		96DB43321854233000B7F739 = {
 			isa = PBXGroup;
 			children = (
+				96D585D018CA8B3B00D61777 /* CocoaFlatUIColor */,
 				96DB43441854233000B7F739 /* Tuning Master */,
 				9627707E1854292600E0B1FD /* Resources */,
 				96DB43631854233000B7F739 /* Tuning MasterTests */,
@@ -402,7 +427,11 @@
 				96DB43571854233000B7F739 /* Images.xcassets in Resources */,
 				96F56470186FAA5F0062592A /* sixteenth_note.png in Resources */,
 				9654AB57186FA35A00CFD756 /* flat.png in Resources */,
+				96D585D718CA8B3B00D61777 /* .gitignore in Resources */,
 				96F5646E186FAA5F0062592A /* quarter_note.png in Resources */,
+				96D585D918CA8B3B00D61777 /* LICENSE in Resources */,
+				96D585DA18CA8B3B00D61777 /* README.md in Resources */,
+				96D585D818CA8B3B00D61777 /* FlatUIColor.podspec in Resources */,
 				962770801854293A00E0B1FD /* CABASA.wav in Resources */,
 				96DB43491854233000B7F739 /* InfoPlist.strings in Resources */,
 				96F56471186FAA5F0062592A /* whole_note.png in Resources */,
@@ -430,6 +459,7 @@
 				9654AB4C186F91A200CFD756 /* JYJNoteCell.m in Sources */,
 				96F56474186FBEA70062592A /* Note.m in Sources */,
 				962770891855492C00E0B1FD /* JYJMusicModel.m in Sources */,
+				96D585DB18CA8B3B00D61777 /* UIColor+FlatUI.m in Sources */,
 				96D4CA2B187914520050CE1A /* JYJBaseViewController.m in Sources */,
 				965987E2187769B90017DEDD /* PickerCell.m in Sources */,
 				96DB434B1854233000B7F739 /* main.m in Sources */,

@@ -224,7 +224,7 @@ typedef enum {
         [tableView beginUpdates];
         [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
         [tableView endUpdates];
-        [self.delegate modifyContainerHeight:-1*PICKER_CELL_HEIGHT];
+//        [self.delegate modifyContainerHeight:-1*PICKER_CELL_HEIGHT];
     }
     else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row < indexPath.row) { // if the picker cell is showing somewhere above the current cell, hide it and show it here
         NSIndexPath *oldPickerIndexPath = self.pickerCellIndexPath;
@@ -248,7 +248,7 @@ typedef enum {
         [tableView beginUpdates];
         [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
         [tableView endUpdates];
-        [self.delegate modifyContainerHeight:PICKER_CELL_HEIGHT];
+//        [self.delegate modifyContainerHeight:PICKER_CELL_HEIGHT];
     }
     
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
@@ -274,7 +274,7 @@ typedef enum {
             [tableView beginUpdates];
             [tableView deleteRowsAtIndexPaths:@[formerPickerCellIndexPath, indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
-            [self.delegate modifyContainerHeight:-1*(NORMAL_CELL_HEIGHT+PICKER_CELL_HEIGHT)];
+//            [self.delegate modifyContainerHeight:-1*(NORMAL_CELL_HEIGHT+PICKER_CELL_HEIGHT)];
         }
 
         else {  // if there is no picker cell showing
@@ -285,7 +285,7 @@ typedef enum {
             [tableView beginUpdates];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
-            [self.delegate modifyContainerHeight:-1*NORMAL_CELL_HEIGHT];
+//            [self.delegate modifyContainerHeight:-1*NORMAL_CELL_HEIGHT];
         }
     }
 }
@@ -378,7 +378,7 @@ typedef enum {
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.model.sequenceToPlay.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
     
-    [self.delegate modifyContainerHeight:NORMAL_CELL_HEIGHT];
+//    [self.delegate modifyContainerHeight:NORMAL_CELL_HEIGHT];
     
 }
 
@@ -413,6 +413,7 @@ typedef enum {
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.noteImageURLs[row]]];
     imageView.frame = CGRectMake(0, 0, NOTE_IMAGE_WIDTH, NOTE_IMAGE_HEIGHT);
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     return imageView;
 }
 

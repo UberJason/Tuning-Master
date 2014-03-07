@@ -18,9 +18,17 @@
 {
     [super viewDidLoad];
     [self.sequenceTableViewController.tableView layoutIfNeeded];
-    self.tableViewContainerHeight.constant = self.sequenceTableViewController.tableView.contentSize.height;
+//    self.tableViewContainerHeight.constant = self.sequenceTableViewController.tableView.contentSize.height;
+
+    self.navigationController.navigationBar.barTintColor = [UIColor peterRiverFlatColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
-    self.scrollView.alwaysBounceVertical = YES;
+    self.bottomNavigationView.backgroundColor = [UIColor peterRiverFlatColor];
+    
+    [self.playPauseButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.playPauseButton.layer.borderWidth = 1.0f;
+    self.playPauseButton.layer.cornerRadius = 8.0f;
+    self.playPauseButton.layer.borderColor = [UIColor whiteColor].CGColor;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -32,10 +40,10 @@
 - (IBAction)togglePlayOrStop {
     [self.sequenceTableViewController.model play];
 }
-
--(void)modifyContainerHeight:(CGFloat)height {
-    self.tableViewContainerHeight.constant += height;
-}
+//
+//-(void)modifyContainerHeight:(CGFloat)height {
+//    self.tableViewContainerHeight.constant += height;
+//}
 
 //-(void)tableViewDidAddACell {
 //    [self.sequenceTableViewController.tableView layoutIfNeeded];

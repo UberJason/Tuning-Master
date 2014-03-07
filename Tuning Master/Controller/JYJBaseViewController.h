@@ -14,8 +14,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewContainerHeight;
 @property (strong, nonatomic) JYJSequenceTableViewController *sequenceTableViewController;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+//@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIButton *playPauseButton;
+@property (weak, nonatomic) IBOutlet UIView *bottomNavigationView;
 
--(void)modifyContainerHeight:(CGFloat)height;
+//-(void)modifyContainerHeight:(CGFloat)height;
 
 @end
