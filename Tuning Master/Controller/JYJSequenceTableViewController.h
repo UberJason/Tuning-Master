@@ -12,7 +12,6 @@
 @import AudioUnit;
 #import "JYJConstants.h"
 #import "JYJMusicModel.h"
-#import "JYJAppDelegate.h"
 #import "Note+Helpers.h"
 #import "Sequence+Helpers.h"
 #import "JYJNoteCell.h"

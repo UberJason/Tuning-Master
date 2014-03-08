@@ -8,16 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "JYJSequenceTableViewController.h"
+#import "JYJLoadingTableViewController.h"
 
 @interface JYJBaseViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewContainerHeight;
 @property (strong, nonatomic) JYJSequenceTableViewController *sequenceTableViewController;
+@property (strong, nonatomic) JYJLoadingTableViewController *loadingTableViewController;
 
-//@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIButton *playPauseButton;
-@property (weak, nonatomic) IBOutlet UIView *bottomNavigationView;
+@property (weak, nonatomic) IBOutlet UIButton *loadButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
-//-(void)modifyContainerHeight:(CGFloat)height;
+@property (weak, nonatomic) IBOutlet UIView *bottomNavigationView;
 
 @end

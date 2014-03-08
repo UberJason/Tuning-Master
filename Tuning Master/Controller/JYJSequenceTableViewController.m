@@ -92,7 +92,7 @@ typedef enum {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    [self deleteAllFromCoreData];
+//    [self deleteAllFromCoreData];
     
     
     AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -102,7 +102,6 @@ typedef enum {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.alwaysBounceVertical = NO;
     
     NSMutableArray *coreDataSequence = [@[
                                           [Note noteWithRestForLength:QUARTER_NOTE],
@@ -114,22 +113,24 @@ typedef enum {
                                           [Note noteWithBaseNote:[Note noteStringFromNote:G octave:4] halfStep:0 noteLength:QUARTER_NOTE],
                                           ] mutableCopy];
     
-    NSOrderedSet *noteSet = [NSOrderedSet orderedSetWithArray:coreDataSequence];
-    Sequence *testSequence = [Sequence sequenceWithName:@"testSet1" notes:noteSet];
-    [self.managedObjectContext save:nil];
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Sequence"];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sequenceName == %@", @"testSet1"];
-    request.predicate = predicate;
-    
-    NSArray *results = [ [(JYJAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext] executeFetchRequest:request error:nil];
-    Sequence *sequence = results[0];
+//    NSOrderedSet *noteSet = [NSOrderedSet orderedSetWithArray:coreDataSequence];
+//    Sequence *testSequence = [Sequence sequenceWithName:@"testSet1" notes:noteSet];
+//    [self.managedObjectContext save:nil];
+//
+//    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Sequence"];
+//    
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sequenceName == %@", @"testSet1"];
+//    request.predicate = predicate;
+//    
+//    NSArray *results = [ [(JYJAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext] executeFetchRequest:request error:nil];
+//    Sequence *sequence = results[0];
+
+    Sequence *sequence = [Sequence sequenceWithName:@"New Sequence" notes:nil];
     
     self.model = [[JYJMusicModel alloc] initWithSampleRate:DEFAULT_SAMPLE_RATE tempo:DEFAULT_TEMPO sequence:sequence];
-    Note *newNote = [Note noteWithBaseNote:[Note noteStringFromNote:C octave:4] halfStep:0 noteLength:QUARTER_NOTE];
-    newNote.sequence = sequence;
-    [self.model updateSequenceToPlay];
+//    Note *newNote = [Note noteWithBaseNote:[Note noteStringFromNote:C octave:4] halfStep:0 noteLength:QUARTER_NOTE];
+//    newNote.sequence = sequence;
+//    [self.model updateSequenceToPlay];
 }
 
 #pragma mark - table view delegate/datasource methods
@@ -224,7 +225,6 @@ typedef enum {
         [tableView beginUpdates];
         [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
         [tableView endUpdates];
-//        [self.delegate modifyContainerHeight:-1*PICKER_CELL_HEIGHT];
     }
     else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row < indexPath.row) { // if the picker cell is showing somewhere above the current cell, hide it and show it here
         NSIndexPath *oldPickerIndexPath = self.pickerCellIndexPath;
@@ -248,7 +248,6 @@ typedef enum {
         [tableView beginUpdates];
         [tableView insertRowsAtIndexPaths:@[self.pickerCellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
         [tableView endUpdates];
-//        [self.delegate modifyContainerHeight:PICKER_CELL_HEIGHT];
     }
     
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
@@ -274,7 +273,6 @@ typedef enum {
             [tableView beginUpdates];
             [tableView deleteRowsAtIndexPaths:@[formerPickerCellIndexPath, indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
-//            [self.delegate modifyContainerHeight:-1*(NORMAL_CELL_HEIGHT+PICKER_CELL_HEIGHT)];
         }
 
         else {  // if there is no picker cell showing
@@ -285,7 +283,6 @@ typedef enum {
             [tableView beginUpdates];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
-//            [self.delegate modifyContainerHeight:-1*NORMAL_CELL_HEIGHT];
         }
     }
 }
@@ -377,8 +374,6 @@ typedef enum {
     else
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.model.sequenceToPlay.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
-    
-//    [self.delegate modifyContainerHeight:NORMAL_CELL_HEIGHT];
     
 }
 

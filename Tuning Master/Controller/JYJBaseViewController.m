@@ -25,10 +25,16 @@
     
     self.bottomNavigationView.backgroundColor = [UIColor peterRiverFlatColor];
     
-    [self.playPauseButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.playPauseButton.layer.borderWidth = 1.0f;
-    self.playPauseButton.layer.cornerRadius = 8.0f;
-    self.playPauseButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    [self setButtonPropertiesForButton:self.playPauseButton];
+    [self setButtonPropertiesForButton:self.saveButton];
+    [self setButtonPropertiesForButton:self.loadButton];
+}
+
+-(void)setButtonPropertiesForButton:(UIButton *)button {
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    button.layer.borderWidth = 1.0f;
+    button.layer.cornerRadius = 7.0f;
+    button.layer.borderColor = [UIColor whiteColor].CGColor;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -36,27 +42,15 @@
         self.sequenceTableViewController = (JYJSequenceTableViewController *)segue.destinationViewController;
         self.sequenceTableViewController.delegate = self;
     }
+    else if([segue.identifier isEqualToString:@"modalLoadVC"]) {
+        UINavigationController *navCtrlr = (UINavigationController *)segue.destinationViewController;
+        self.loadingTableViewController = (JYJLoadingTableViewController *)navCtrlr.topViewController;
+        self.loadingTableViewController.delegate = self;
+    }
 }
 - (IBAction)togglePlayOrStop {
     [self.sequenceTableViewController.model play];
 }
-//
-//-(void)modifyContainerHeight:(CGFloat)height {
-//    self.tableViewContainerHeight.constant += height;
-//}
 
-//-(void)tableViewDidAddACell {
-//    [self.sequenceTableViewController.tableView layoutIfNeeded];
-//    self.tableViewContainerHeight.constant = self.sequenceTableViewController.tableView.contentSize.height;
-//    
-//    [UIView animateWithDuration:0.3
-//                     animations:^{
-//                         [self.scrollView layoutIfNeeded];
-//                     }
-//                     completion:nil];
-//}
-//-(void)tableViewDidDeleteACell {
-//
-//}
 
 @end

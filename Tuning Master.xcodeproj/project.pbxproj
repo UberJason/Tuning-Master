@@ -24,6 +24,8 @@
 		96D585D918CA8B3B00D61777 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 96D585D318CA8B3B00D61777 /* LICENSE */; };
 		96D585DA18CA8B3B00D61777 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 96D585D418CA8B3B00D61777 /* README.md */; };
 		96D585DB18CA8B3B00D61777 /* UIColor+FlatUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D585D618CA8B3B00D61777 /* UIColor+FlatUI.m */; };
+		96D585DE18CAA9D900D61777 /* JYJLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D585DD18CAA9D900D61777 /* JYJLoadingTableViewController.m */; };
+		96D585E118CAB58900D61777 /* JYJCenterLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D585E018CAB58900D61777 /* JYJCenterLabelCell.m */; };
 		96DAD51D185C0CC2001AEF91 /* TMDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD51B185C0CC2001AEF91 /* TMDataModel.xcdatamodeld */; };
 		96DAD52F185C0E54001AEF91 /* Sequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD52E185C0E54001AEF91 /* Sequence.m */; };
 		96DB433F1854233000B7F739 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB433E1854233000B7F739 /* Foundation.framework */; };
@@ -88,6 +90,10 @@
 		96D585D418CA8B3B00D61777 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		96D585D518CA8B3B00D61777 /* UIColor+FlatUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+FlatUI.h"; sourceTree = "<group>"; };
 		96D585D618CA8B3B00D61777 /* UIColor+FlatUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+FlatUI.m"; sourceTree = "<group>"; };
+		96D585DC18CAA9D900D61777 /* JYJLoadingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYJLoadingTableViewController.h; path = Controller/JYJLoadingTableViewController.h; sourceTree = "<group>"; };
+		96D585DD18CAA9D900D61777 /* JYJLoadingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJLoadingTableViewController.m; path = Controller/JYJLoadingTableViewController.m; sourceTree = "<group>"; };
+		96D585DF18CAB58900D61777 /* JYJCenterLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JYJCenterLabelCell.h; path = "UI Subclasses/JYJCenterLabelCell.h"; sourceTree = "<group>"; };
+		96D585E018CAB58900D61777 /* JYJCenterLabelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JYJCenterLabelCell.m; path = "UI Subclasses/JYJCenterLabelCell.m"; sourceTree = "<group>"; };
 		96DAD51C185C0CC2001AEF91 /* TMDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMDataModel.xcdatamodel; sourceTree = "<group>"; };
 		96DAD52D185C0E54001AEF91 /* Sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sequence.h; path = "Core Data/Sequence.h"; sourceTree = "<group>"; };
 		96DAD52E185C0E54001AEF91 /* Sequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sequence.m; path = "Core Data/Sequence.m"; sourceTree = "<group>"; };
@@ -180,6 +186,8 @@
 		965987E3187769C20017DEDD /* UI Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				96D585DF18CAB58900D61777 /* JYJCenterLabelCell.h */,
+				96D585E018CAB58900D61777 /* JYJCenterLabelCell.m */,
 				9654AB4A186F91A200CFD756 /* JYJNoteCell.h */,
 				9654AB4B186F91A200CFD756 /* JYJNoteCell.m */,
 				965987E0187769B90017DEDD /* PickerCell.h */,
@@ -206,6 +214,8 @@
 				96D4CA2A187914520050CE1A /* JYJBaseViewController.m */,
 				96DB43531854233000B7F739 /* JYJSequenceTableViewController.h */,
 				96DB43541854233000B7F739 /* JYJSequenceTableViewController.m */,
+				96D585DC18CAA9D900D61777 /* JYJLoadingTableViewController.h */,
+				96D585DD18CAA9D900D61777 /* JYJLoadingTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -466,6 +476,8 @@
 				96DB43551854233000B7F739 /* JYJSequenceTableViewController.m in Sources */,
 				96FF5586185E3B1A005CC503 /* Note+Helpers.m in Sources */,
 				96DAD52F185C0E54001AEF91 /* Sequence.m in Sources */,
+				96D585E118CAB58900D61777 /* JYJCenterLabelCell.m in Sources */,
+				96D585DE18CAA9D900D61777 /* JYJLoadingTableViewController.m in Sources */,
 				9627708618543A6D00E0B1FD /* JYJNote.m in Sources */,
 				9636E96B185C0120003EFCE5 /* JYJNoteHelper.m in Sources */,
 				96DAD51D185C0CC2001AEF91 /* TMDataModel.xcdatamodeld in Sources */,
