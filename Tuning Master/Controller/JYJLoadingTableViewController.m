@@ -72,7 +72,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -83,43 +83,41 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSString *CellIdentifier = (indexPath.section == 0 ? @"sequenceCell" : @"cancelCell");
+    //    NSString *CellIdentifier = (indexPath.section == 0 ? @"sequenceCell" : @"cancelCell");
+    static NSString *CellIdentifier = @"sequenceCell";
     
-    if(indexPath.section == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        Sequence *sequence = self.fetchedResultsArray[indexPath.row];
-        cell.textLabel.text = sequence.sequenceName;
-        if(sequence == self.currentLoadedSequence) {
-            cell.textLabel.textColor = [UIColor emeraldFlatColor];
-            cell.textLabel.text = [NSString stringWithFormat:@"%@%@", cell.textLabel.text, @" (Current)"];
-            cell.userInteractionEnabled = NO;
-        }
-        return cell;
+    //    if(indexPath.section == 0) {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    Sequence *sequence = self.fetchedResultsArray[indexPath.row];
+    cell.textLabel.text = sequence.sequenceName;
+    if(sequence == self.currentLoadedSequence) {
+        cell.textLabel.textColor = [UIColor emeraldFlatColor];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@%@", cell.textLabel.text, @" (Current)"];
+        cell.userInteractionEnabled = NO;
     }
-    else {
-        JYJCenterLabelCell *cell = (JYJCenterLabelCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell.textLabel.text = @"Cancel";
-        cell.textLabel.textColor = [UIColor redColor];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
+    return cell;
+    //    }
+    //    else {
+    //        JYJCenterLabelCell *cell = (JYJCenterLabelCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    ////        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    //        cell.textLabel.text = @"Cancel";
+    //        cell.textLabel.textColor = [UIColor redColor];
+    ////        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //        return cell;
+    //    }
     
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.section == 0) {
-        
-        Sequence *loadedSequence = self.fetchedResultsArray[indexPath.row];
-        [self.delegate userLoadedNewSequence:loadedSequence];
-        
-    }
+    Sequence *loadedSequence = self.fetchedResultsArray[indexPath.row];
+    [self.delegate userLoadedNewSequence:loadedSequence];
+    
     [self.delegate dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(editingStyle == UITableViewCellEditingStyleDelete) {
-
+        
         // Edge case: if the current sequence loaded is a new sequence (i.e. not yet saved to core data),
         // [self.managedObjectContext save:nil] will commit the current sequence to Core Data when that is undesired.
         // I could find no way to tell Core Data to only save particular changes, so I have to remove the sequence
@@ -146,5 +144,8 @@
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [tableView endUpdates];
     }
+}
+- (IBAction)cancel {
+    [self.delegate dismissViewControllerAnimated:YES completion:nil];
 }
 @end

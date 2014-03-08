@@ -211,12 +211,16 @@ typedef enum {
     else if([identifier isEqualToString:@"addCell"]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.textLabel.text = @"Add a note...";
+        cell.textLabel.textColor = [UIColor nephritisFlatColor];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
         
         return cell;
     }
     else if([identifier isEqualToString:@"tempoCell"]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.textLabel.text = [NSString stringWithFormat:@"Current tempo: %ld", (NSInteger)self.model.tempo];
+        cell.textLabel.textColor = [UIColor sunFlowerFlatColor];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
         
         return cell;
     }
@@ -295,7 +299,7 @@ typedef enum {
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = [self identifierForRowAtIndexPath:indexPath];
-    if([identifier isEqualToString:@"pickerCell"] || [identifier isEqualToString:@"addCell"])
+    if([identifier isEqualToString:@"pickerCell"] || [identifier isEqualToString:@"addCell"] || [identifier isEqualToString:@"tempoCell"])
         return NO;
     else
         return YES;

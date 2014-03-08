@@ -24,7 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     self.navigationController.navigationBar.barTintColor = [UIColor peterRiverFlatColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
@@ -33,7 +33,7 @@
     [self setButtonPropertiesForButton:self.playPauseButton];
     [self setButtonPropertiesForButton:self.saveButton];
     [self setButtonPropertiesForButton:self.loadButton];
-
+    
     
 }
 
@@ -100,6 +100,10 @@
 #pragma mark - target action methods
 
 - (IBAction)save {
+    [self save:YES];
+}
+
+-(void)save:(BOOL)showSavedMessage {
     // if insertedObjects contains this sequence, this is an unsaved sequence
     if([self.managedObjectContext.insertedObjects containsObject: self.sequenceTableViewController.model.sequence]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save" message:@"Enter a name to save this sequence." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
@@ -108,8 +112,10 @@
     }
     else {
         [self.managedObjectContext save:nil];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Saved" message:@"Your sequence was saved." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        if(showSavedMessage) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Saved" message:@"Your sequence was saved." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+        }
     }
 }
 
@@ -118,7 +124,7 @@
 }
 
 - (IBAction)createNewSequence:(UIBarButtonItem *)sender {
-    [self save];
+    [self save:NO];
     if([self.managedObjectContext.insertedObjects containsObject: self.sequenceTableViewController.model.sequence]) {
         // if insertedObjects contains this sequence, the user chose not to save it.
         // delete this sequence before updating a new one.
