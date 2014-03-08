@@ -33,7 +33,8 @@
     [self setButtonPropertiesForButton:self.playPauseButton];
     [self setButtonPropertiesForButton:self.saveButton];
     [self setButtonPropertiesForButton:self.loadButton];
-//    [self setButtonPropertiesForButton:self.createNewSequenceButton];
+
+    
 }
 
 -(void)setButtonPropertiesForButton:(UIButton *)button {
@@ -41,6 +42,15 @@
     button.layer.borderWidth = 1.0f;
     button.layer.cornerRadius = 7.0f;
     button.layer.borderColor = [UIColor whiteColor].CGColor;
+}
+
+-(void)disableButton:(UIButton *)button {
+    button.userInteractionEnabled = NO;
+    button.alpha = 0.5;
+}
+-(void)enableButton:(UIButton *)button {
+    button.userInteractionEnabled = YES;
+    button.alpha = 1.0;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -108,10 +118,15 @@
 }
 -(void)sequenceStartedPlaying {
     [self.playPauseButton setTitle:@"Stop" forState:UIControlStateNormal];
+    [self disableButton:self.saveButton];
+    [self disableButton:self.loadButton];
+    self.createNewSequenceButton.enabled = NO;
 }
 
 -(void)sequenceStoppedPlaying {
     [self.playPauseButton setTitle:@"Play" forState:UIControlStateNormal];
-
+    [self enableButton:self.saveButton];
+    [self enableButton:self.loadButton];
+    self.createNewSequenceButton.enabled = YES;
 }
 @end

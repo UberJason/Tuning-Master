@@ -18,7 +18,7 @@
 #import "PickerCell.h"
 @class JYJBaseViewController;
 
-@interface JYJSequenceTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface JYJSequenceTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

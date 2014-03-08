@@ -75,7 +75,8 @@ typedef enum {
     return @[FLAT_URL, NATURAL_URL, SHARP_URL];
 }
 -(NSArray *)displayableNoteNames {
-    return @[@"A", @"B", @"C", @"D", @"E", @"F", @"G"];
+//    return @[@"A", @"B", @"C", @"D", @"E", @"F", @"G"];
+    return @[@"C", @"D", @"E", @"F", @"G", @"A", @"B"];
 }
 -(NSArray *)possibleNoteLengths {
     return @[@(SIXTEENTH_NOTE), @(EIGHTH_NOTE), @(QUARTER_NOTE), @(HALF_NOTE), @(WHOLE_NOTE), @(QUARTER_NOTE)];
@@ -164,7 +165,7 @@ typedef enum {
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section==1)
-        return 1;
+        return 2;
     
     if(self.pickerCellIndexPath)
         return self.model.sequenceToPlay.count + 1;
@@ -213,6 +214,12 @@ typedef enum {
         
         return cell;
     }
+    else if([identifier isEqualToString:@"tempoCell"]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.textLabel.text = [NSString stringWithFormat:@"Current tempo: %ld", (NSInteger)self.model.tempo];
+        
+        return cell;
+    }
     else {
         NSInteger row = (self.pickerCellIndexPath && self.pickerCellIndexPath.row < indexPath.row) ? indexPath.row-1 : indexPath.row;
         
@@ -240,7 +247,14 @@ typedef enum {
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 1) {    // add cell was tapped; add a note to the end of the sequence.
-        [self addNewNote];
+        if(indexPath.row == 1)
+            [self addNewNote];
+        else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tempo" message:@"Enter a new tempo." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"OK", nil];
+            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            [alert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
+            [alert show];
+        }
     }
     else if(self.pickerCellIndexPath && self.pickerCellIndexPath.row == indexPath.row) {
         // do nothing, should not select the picker cell.
@@ -315,7 +329,7 @@ typedef enum {
 
 -(NSString *)identifierForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 1)
-        return @"addCell";
+        return indexPath.row == 0 ? @"tempoCell" : @"addCell";
     
     if(self.pickerCellIndexPath) {
         if(indexPath.row == self.pickerCellIndexPath.row)
@@ -326,6 +340,21 @@ typedef enum {
     else {
         return @"noteCell";
     }
+}
+
+#pragma mark - UIAlertViewDelegate method
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0)
+        return;
+    
+    NSString *input = [alertView textFieldAtIndex:0].text;
+    if(!input || [input isEqualToString:@""])
+        return;
+    
+    NSInteger newTempo = [input integerValue];
+    self.model.tempo = newTempo;
+    [self.tableView reloadData];
 }
 
 #pragma mark - start/stop methods
