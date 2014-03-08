@@ -26,7 +26,15 @@
     if(!_fetchedResultsArray) {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Sequence"];
         
-        _fetchedResultsArray = [self.managedObjectContext executeFetchRequest:request error:nil];
+        NSArray *results = [[self.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+        NSArray *unsavedObjects = [self.managedObjectContext.insertedObjects allObjects];
+        
+        NSMutableArray *filteredResults = [NSMutableArray new];
+        for(Sequence *sequence in results)
+            if(![unsavedObjects containsObject:sequence])
+                [filteredResults addObject:sequence];
+            
+        _fetchedResultsArray = filteredResults;
     }
     return _fetchedResultsArray;
 }
@@ -36,6 +44,9 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor peterRiverFlatColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,8 +90,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.section == 1)
-        [self.delegate dismissViewControllerAnimated:YES completion:nil];
+    if(indexPath.section == 0) {
+    
+        Sequence *loadedSequence = self.fetchedResultsArray[indexPath.row];
+        [self.delegate userLoadedNewSequence:loadedSequence];
+        
+    }
+    [self.delegate dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

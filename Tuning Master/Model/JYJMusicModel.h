@@ -18,6 +18,8 @@
 
 @property (nonatomic) AudioComponentInstance toneUnit;
 
+@property (nonatomic) BOOL currentlyPlaying;
+
 @property (nonatomic) double noteFrequency;
 @property (nonatomic) double tempo;     // in beats per minute
 
@@ -37,5 +39,6 @@
 -(void)updateSequenceToPlay;
 -(void)play;
 -(void)goodNote_EverybodyBackToOne;
+-(void)playOrStop;
 
 @end

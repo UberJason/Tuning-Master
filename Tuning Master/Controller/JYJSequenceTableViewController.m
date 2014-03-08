@@ -92,7 +92,7 @@ typedef enum {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-//    [self deleteAllFromCoreData];
+    //    [self deleteAllFromCoreData];
     
     
     AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -103,34 +103,57 @@ typedef enum {
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor whiteColor];
     
-    NSMutableArray *coreDataSequence = [@[
-                                          [Note noteWithRestForLength:QUARTER_NOTE],
-                                          [Note noteWithRestForLength:QUARTER_NOTE],
-                                          [Note noteWithRestForLength:QUARTER_NOTE],
-                                          [Note noteWithBaseNote:[Note noteStringFromNote:G octave:4] halfStep:1 noteLength:QUARTER_NOTE],
-                                          [Note noteWithBaseNote:[Note noteStringFromNote:A octave:4] halfStep:-1 noteLength:QUARTER_NOTE],
-                                          [Note noteWithBaseNote:[Note noteStringFromNote:G octave:4] halfStep:0 noteLength:QUARTER_NOTE],
-                                          [Note noteWithBaseNote:[Note noteStringFromNote:G octave:4] halfStep:0 noteLength:QUARTER_NOTE],
-                                          ] mutableCopy];
+    //    NSMutableArray *coreDataSequence = [@[
+    //                                          [Note noteWithRestForLength:QUARTER_NOTE],
+    //                                          [Note noteWithRestForLength:QUARTER_NOTE],
+    //                                          [Note noteWithRestForLength:QUARTER_NOTE],
+    //                                          [Note noteWithBaseNote:[Note noteStringFromNote:G octave:4] halfStep:1 noteLength:QUARTER_NOTE],
+    //                                          [Note noteWithBaseNote:[Note noteStringFromNote:A octave:4] halfStep:-1 noteLength:QUARTER_NOTE],
+    //                                          [Note noteWithBaseNote:[Note noteStringFromNote:G octave:4] halfStep:0 noteLength:QUARTER_NOTE],
+    //                                          [Note noteWithBaseNote:[Note noteStringFromNote:G octave:4] halfStep:0 noteLength:QUARTER_NOTE],
+    //                                          ] mutableCopy];
+    //
+    //    NSOrderedSet *noteSet = [NSOrderedSet orderedSetWithArray:coreDataSequence];
+    //    Sequence *testSequence = [Sequence sequenceWithName:@"testSet1" notes:noteSet];
+    //    [self.managedObjectContext save:nil];
+    //
+    //    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Sequence"];
+    //
+    //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sequenceName == %@", @"testSet1"];
+    //    request.predicate = predicate;
+    //
+    //    NSArray *results = [ [(JYJAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext] executeFetchRequest:request error:nil];
+    //    Sequence *sequence = results[0];
     
-//    NSOrderedSet *noteSet = [NSOrderedSet orderedSetWithArray:coreDataSequence];
-//    Sequence *testSequence = [Sequence sequenceWithName:@"testSet1" notes:noteSet];
-//    [self.managedObjectContext save:nil];
-//
-//    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Sequence"];
-//    
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sequenceName == %@", @"testSet1"];
-//    request.predicate = predicate;
-//    
-//    NSArray *results = [ [(JYJAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext] executeFetchRequest:request error:nil];
-//    Sequence *sequence = results[0];
-
     Sequence *sequence = [Sequence sequenceWithName:@"New Sequence" notes:nil];
     
     self.model = [[JYJMusicModel alloc] initWithSampleRate:DEFAULT_SAMPLE_RATE tempo:DEFAULT_TEMPO sequence:sequence];
-//    Note *newNote = [Note noteWithBaseNote:[Note noteStringFromNote:C octave:4] halfStep:0 noteLength:QUARTER_NOTE];
-//    newNote.sequence = sequence;
-//    [self.model updateSequenceToPlay];
+    //    Note *newNote = [Note noteWithBaseNote:[Note noteStringFromNote:C octave:4] halfStep:0 noteLength:QUARTER_NOTE];
+    //    newNote.sequence = sequence;
+    //    [self.model updateSequenceToPlay];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sequenceStoppedPlaying) name:@"Stopped Playing Notification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sequenceStartedPlaying) name:@"Started Playing Notification" object:nil];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+#pragma mark - communication with the base view controller
+
+-(void)updateSequence:(Sequence *)sequence {
+    self.model.sequence = sequence;
+    [self.model updateSequenceToPlay];
+    [self.tableView reloadData];
+}
+
+-(void)sequenceStartedPlaying {
+    [self.delegate sequenceStartedPlaying];
+}
+
+-(void)sequenceStoppedPlaying {
+    NSLog(@"received message that model is no longer playing");
+    [self.delegate sequenceStoppedPlaying];
 }
 
 #pragma mark - table view delegate/datasource methods
@@ -197,7 +220,8 @@ typedef enum {
         
         Note *note = ((Note *)self.model.sequence.notes[row]);
         
-        cell.lengthImage.image = [UIImage imageNamed:[self imageNameForNote:note]];
+        NSString *imageName = [self imageNameForNote:note];
+        cell.lengthImage.image = (imageName ? [UIImage imageNamed:imageName] : nil);
         
         if(note.isRest) {
             cell.noteDetailsPanel.hidden = YES;
@@ -206,7 +230,9 @@ typedef enum {
             cell.noteDetailsPanel.hidden = NO;
             cell.noteLabel.text = note.baseNoteName;
             cell.octaveLabel.text = [NSString stringWithFormat:@"%ld", (long)[note.octaveNumber integerValue]];
-            cell.sharpFlatImage.image = [UIImage imageNamed:[self sharpFlatImageForNote:note]];
+            NSString *imageName = [self sharpFlatImageForNote:note];
+            cell.sharpFlatImage.image = (imageName ? [UIImage imageNamed:imageName] : nil);
+            
         }
         return cell;
     }
@@ -274,7 +300,7 @@ typedef enum {
             [tableView deleteRowsAtIndexPaths:@[formerPickerCellIndexPath, indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
         }
-
+        
         else {  // if there is no picker cell showing
             Note *noteToDelete = self.model.sequenceToPlay[indexPath.row];
             noteToDelete.sequence = nil;
@@ -298,16 +324,16 @@ typedef enum {
             return @"noteCell";
     }
     else {
-            return @"noteCell";
+        return @"noteCell";
     }
 }
 
-#pragma mark - target/action methods
+#pragma mark - start/stop methods
 
-- (IBAction)play {
+- (void)play {
     [self.model play];
 }
-- (IBAction)stop {
+- (void)stop {
     [self.model goodNote_EverybodyBackToOne];
 }
 
@@ -363,8 +389,13 @@ typedef enum {
 #pragma mark - helpers
 
 -(void)addNewNote {
-    Note *lastNoteInSequence = self.model.sequenceToPlay[self.model.sequence.notes.count-1];
-    Note *newNote = [Note noteFromOtherNote:lastNoteInSequence];
+    Note *newNote;
+    if(self.model.sequence.notes.count == 0)
+        newNote = [Note noteWithRestForLength:QUARTER_NOTE];
+    else {
+        Note *lastNoteInSequence = self.model.sequenceToPlay[self.model.sequence.notes.count-1];
+        newNote = [Note noteFromOtherNote:lastNoteInSequence];
+    }
     newNote.sequence = self.model.sequence;
     [self.model updateSequenceToPlay];
     
@@ -380,7 +411,6 @@ typedef enum {
 -(void)updateNoteAtIndex:(NSInteger)index withValuesFromPicker:(UIPickerView *)pickerView {
     
     Note *note = self.model.sequence.notes[index];
-    NSLog(@"Note: %@", [note description]);
     if([pickerView selectedRowInComponent:0] == [self.noteImageURLs indexOfObject:QUARTER_REST_URL]) {  // handle special case of quarter rest
         NSLog(@"quarter rest selected");
         note.noteName = REST;
@@ -496,7 +526,7 @@ typedef enum {
     if([note.halfStep integerValue] == -1)
         return FLAT_URL;
     else if([note.halfStep integerValue] == 0)
-        return nil;
+        return @"ERROR";
     else
         return SHARP_URL;
 }

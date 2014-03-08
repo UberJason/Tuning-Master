@@ -22,12 +22,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (strong, nonatomic) NSTimer *playlistTimer;
-@property (strong, nonatomic) NSTimer *stopTimer;
-@property (strong, nonatomic) NSTimer *metronomeTimer;
-
-@property (strong, nonatomic) NSMutableArray *userList;
-
 @property (strong, nonatomic) JYJMusicModel *model;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
@@ -40,5 +34,7 @@
 @property (strong, nonatomic) NSArray *possibleAccents;
 
 @property (weak, nonatomic) JYJBaseViewController *delegate;
+
+-(void)updateSequence:(Sequence *)sequence;
 
 @end

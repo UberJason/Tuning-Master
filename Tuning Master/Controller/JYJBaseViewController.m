@@ -14,11 +14,16 @@
 
 @implementation JYJBaseViewController
 
+-(NSManagedObjectContext *)managedObjectContext {
+    if(!_managedObjectContext) {
+        _managedObjectContext = ((JYJAppDelegate *)[[UIApplication sharedApplication] delegate]).managedObjectContext;
+    }
+    return _managedObjectContext;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.sequenceTableViewController.tableView layoutIfNeeded];
-//    self.tableViewContainerHeight.constant = self.sequenceTableViewController.tableView.contentSize.height;
 
     self.navigationController.navigationBar.barTintColor = [UIColor peterRiverFlatColor];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
@@ -28,6 +33,7 @@
     [self setButtonPropertiesForButton:self.playPauseButton];
     [self setButtonPropertiesForButton:self.saveButton];
     [self setButtonPropertiesForButton:self.loadButton];
+//    [self setButtonPropertiesForButton:self.createNewSequenceButton];
 }
 
 -(void)setButtonPropertiesForButton:(UIButton *)button {
@@ -48,9 +54,64 @@
         self.loadingTableViewController.delegate = self;
     }
 }
-- (IBAction)togglePlayOrStop {
-    [self.sequenceTableViewController.model play];
+
+#pragma mark - UIAlertViewDelegate
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0)
+        return;
+    
+    self.sequenceTableViewController.model.sequence.sequenceName = [alertView textFieldAtIndex:0].text;
+    [self.managedObjectContext save:nil];
+    [self.sequenceTableViewController.tableView reloadData];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Saved" message:@"Your sequence was saved." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
 }
 
+#pragma mark - target action methods
 
+- (IBAction)save {
+    // if insertedObjects contains this sequence, this is an unsaved sequence
+    if([self.managedObjectContext.insertedObjects containsObject: self.sequenceTableViewController.model.sequence]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save" message:@"Enter a name to save this sequence." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alert show];
+    }
+    else {
+        [self.managedObjectContext save:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Saved" message:@"Your sequence was saved." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
+- (IBAction)togglePlayOrStop {
+    [self.sequenceTableViewController.model playOrStop];
+}
+
+- (IBAction)createNewSequence:(UIBarButtonItem *)sender {
+    [self save];
+    if([self.managedObjectContext.insertedObjects containsObject: self.sequenceTableViewController.model.sequence]) {
+        // if insertedObjects contains this sequence, the user chose not to save it.
+        // rollback the context before creating this new blank sequence.
+        [self.managedObjectContext rollback];
+    }
+    Sequence *blankSequence = [Sequence sequenceWithName:@"New Sequence" notes:nil];
+    [self.sequenceTableViewController updateSequence:blankSequence];
+}
+
+#pragma mark - view controller communication
+
+-(void)userLoadedNewSequence:(Sequence *)newSequence {
+    [self.managedObjectContext rollback];
+    [self.sequenceTableViewController updateSequence:newSequence];
+    
+}
+-(void)sequenceStartedPlaying {
+    [self.playPauseButton setTitle:@"Stop" forState:UIControlStateNormal];
+}
+
+-(void)sequenceStoppedPlaying {
+    [self.playPauseButton setTitle:@"Play" forState:UIControlStateNormal];
+
+}
 @end

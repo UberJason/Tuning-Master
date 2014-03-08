@@ -175,6 +175,9 @@ OSStatus RenderTone(
 
 - (void)play {
     [self goodNote_EverybodyBackToOne];
+    if(!self.currentlyPlaying)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Started Playing Notification" object:self];
+    self.currentlyPlaying = YES;
     NSLog(@"****reset and CLICKED PLAY****");
     [self playNoteInList:nil];
     [self playMetronomeClick];
@@ -252,7 +255,17 @@ OSStatus RenderTone(
     self.metronomeTimer = nil;
     self.indexOfSequence = 0.0;
     self.ignoreCount = 0;
+    if(self.currentlyPlaying)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Stopped Playing Notification" object:self];
+    self.currentlyPlaying = NO;
+    
 }
 
+-(void)playOrStop {
+    if(self.currentlyPlaying)
+        [self goodNote_EverybodyBackToOne];
+    else
+        [self play];
+}
 
 @end

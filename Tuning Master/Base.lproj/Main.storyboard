@@ -152,7 +152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1484" y="761"/>
+            <point key="canvasLocation" x="1656" y="786"/>
         </scene>
         <!--Loading Table View Controller - Load Sequence-->
         <scene sceneID="idf-N9-VbQ">
@@ -195,11 +195,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bay-fV-SzE">
-                                                    <rect key="frame" x="139" y="11" width="42" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bay-fV-SzE">
+                                                    <rect key="frame" x="131" y="10" width="59" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <color key="textColor" red="1" green="0.023988376490000001" blue="0.059364635390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -230,7 +230,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6eF-bB-d0D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2010" y="1424"/>
+            <point key="canvasLocation" x="2087" y="1424"/>
         </scene>
         <!--Base View Controller - Tuning Master-->
         <scene sceneID="o5o-Pu-aRp">
@@ -283,6 +283,9 @@
                                         <state key="normal" title="Save">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="save" destination="vKd-UV-SA2" eventType="touchUpInside" id="urA-7V-diI"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZ0-uJ-SM7">
                                         <rect key="frame" x="260" y="10" width="40" height="30"/>
@@ -321,9 +324,16 @@
                             <constraint firstItem="a1C-gI-FfT" firstAttribute="top" secondItem="mqA-SD-o3K" secondAttribute="bottom" id="fbX-rc-8XP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Tuning Master" id="H5p-Wv-Eqa"/>
+                    <navigationItem key="navigationItem" title="Tuning Master" id="H5p-Wv-Eqa">
+                        <barButtonItem key="rightBarButtonItem" title="New" id="Wa0-Zh-4eS">
+                            <connections>
+                                <action selector="createNewSequence:" destination="vKd-UV-SA2" id="dMT-nn-6GF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bottomNavigationView" destination="a1C-gI-FfT" id="RI3-8U-WzZ"/>
+                        <outlet property="createNewSequenceButton" destination="Wa0-Zh-4eS" id="179-wc-x51"/>
                         <outlet property="loadButton" destination="FZ0-uJ-SM7" id="xSN-Hd-PY7"/>
                         <outlet property="playPauseButton" destination="CMr-FR-sJI" id="2yT-Kz-lI0"/>
                         <outlet property="saveButton" destination="rpK-Tm-RkY" id="BUK-tL-DeU"/>
@@ -367,7 +377,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c0x-jt-Z96" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1484" y="1424"/>
+            <point key="canvasLocation" x="1656" y="1424"/>
         </scene>
     </scenes>
     <resources>
