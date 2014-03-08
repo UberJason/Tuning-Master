@@ -21,5 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 
 @property (weak, nonatomic) JYJBaseViewController *delegate;
+@property (strong, nonatomic) Sequence *currentLoadedSequence;
+
+-(NSArray *)fetchSavedSequences;
 
 @end

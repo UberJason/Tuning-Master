@@ -62,6 +62,7 @@
         UINavigationController *navCtrlr = (UINavigationController *)segue.destinationViewController;
         self.loadingTableViewController = (JYJLoadingTableViewController *)navCtrlr.topViewController;
         self.loadingTableViewController.delegate = self;
+        self.loadingTableViewController.currentLoadedSequence = self.sequenceTableViewController.model.sequence;
     }
 }
 
@@ -70,6 +71,24 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex == 0)
         return;
+    
+    NSString *newName = [alertView textFieldAtIndex:0].text;
+    if(!newName || [newName isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save" message:@"Enter a name to save this sequence." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alert show];
+        return;
+    }
+    
+    NSArray *currentSavedList = [self.loadingTableViewController fetchSavedSequences];
+    for(Sequence *seq in currentSavedList)
+        if([seq.sequenceName isEqualToString:newName]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Try Again" message:@"You already have a sequenced with that name. Enter another name." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            [alert show];
+            
+            return;
+        }
     
     self.sequenceTableViewController.model.sequence.sequenceName = [alertView textFieldAtIndex:0].text;
     [self.managedObjectContext save:nil];
@@ -102,8 +121,8 @@
     [self save];
     if([self.managedObjectContext.insertedObjects containsObject: self.sequenceTableViewController.model.sequence]) {
         // if insertedObjects contains this sequence, the user chose not to save it.
-        // rollback the context before creating this new blank sequence.
-        [self.managedObjectContext rollback];
+        // delete this sequence before updating a new one.
+        [self.managedObjectContext deleteObject:self.sequenceTableViewController.model.sequence];
     }
     Sequence *blankSequence = [Sequence sequenceWithName:@"New Sequence" notes:nil];
     [self.sequenceTableViewController updateSequence:blankSequence];

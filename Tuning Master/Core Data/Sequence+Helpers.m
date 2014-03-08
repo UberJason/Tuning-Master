@@ -20,4 +20,7 @@
     
     return sequence;
 }
+-(NSString *)description {
+    return self.sequenceName;
+}
 @end

@@ -12,5 +12,6 @@
 @interface Sequence (Helpers)
 
 +(Sequence *)sequenceWithName:(NSString *)name notes:(NSOrderedSet *)notes;
+-(NSString *)description;
 
 @end
