@@ -218,7 +218,7 @@ typedef enum {
     }
     else if([identifier isEqualToString:@"tempoCell"]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        cell.textLabel.text = [NSString stringWithFormat:@"Current tempo: %ld", (NSInteger)self.model.tempo];
+        cell.textLabel.text = [NSString stringWithFormat:@"Current tempo: %ld", (long)self.model.tempo];
         cell.textLabel.textColor = [UIColor sunFlowerFlatColor];
         cell.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
         
@@ -488,7 +488,7 @@ typedef enum {
 }
 -(UILabel *)octaveLabelForPickerViewForRow:(NSInteger)row { // 3, 4, 5, 6, 7, 8
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, NOTE_IMAGE_WIDTH, NOTE_IMAGE_HEIGHT)];
-    label.text = [NSString stringWithFormat:@"%ld", row+3];
+    label.text = [NSString stringWithFormat:@"%ld", (long)(row+3)];
     label.font = [UIFont systemFontOfSize:NOTE_TEXT_FONT_SIZE];
     return label;
 }
